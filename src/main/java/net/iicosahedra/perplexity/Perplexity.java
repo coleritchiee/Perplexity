@@ -2,6 +2,7 @@ package net.iicosahedra.perplexity;
 
 import net.iicosahedra.perplexity.setup.Config;
 import net.iicosahedra.perplexity.setup.Registration;
+import net.iicosahedra.perplexity.util.ISidedProxy;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -25,12 +26,17 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 public class Perplexity
 {
     public static final String MODID = "perplexity";
+
+    public static Perplexity instance;
+
+    public ISidedProxy proxy;
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public Perplexity(IEventBus modEventBus, ModContainer modContainer)
     {
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
+        Registration.init(modEventBus);
         modEventBus.addListener(Registration::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
