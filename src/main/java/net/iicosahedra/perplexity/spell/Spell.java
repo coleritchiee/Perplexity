@@ -1,67 +1,52 @@
 package net.iicosahedra.perplexity.spell;
-import net.iicosahedra.perplexity.spell.component.AbstractSpellPart;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
+import net.iicosahedra.perplexity.spell.components.AbstractEffect;
+import net.iicosahedra.perplexity.spell.components.AbstractModifier;
+import net.iicosahedra.perplexity.spell.components.AbstractShape;
+import net.iicosahedra.perplexity.spell.components.ISpellComponent;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Spell implements Cloneable{
-    public List<AbstractSpellPart> components = new ArrayList<>();
-    public String name = "";
+public class Spell {
+    private List<AbstractShape> shapes = new ArrayList<>();
+    private List<AbstractEffect> effects = new ArrayList<>();
+    private List<AbstractModifier> modifiers = new ArrayList<>();
 
-    public Spell(List<AbstractSpellPart> components){
-        this.components = components == null ? new ArrayList<>() : components;
-    }
+    private String name;
 
-    public Spell(){
-    }
+    public Spell(){}
 
-    public Spell(AbstractSpellPart... components){
-        super();
+    public Spell(String name, ISpellComponent... components){
+        this.name = name;
         add(components);
     }
 
-    public Spell add(AbstractSpellPart spellPart){
-        components.add(spellPart);
-        return this;
-    }
-
-    public Spell add(AbstractSpellPart... spellParts){
-        for(AbstractSpellPart part: spellParts){
-            add(part);
+    public Spell add(ISpellComponent... components) {
+        for(ISpellComponent component:components){
+            if(component instanceof AbstractEffect){
+                effects.add((AbstractEffect) component);
+            }
+            if(component instanceof AbstractModifier){
+                modifiers.add((AbstractModifier) component);
+            }
+            if(component instanceof AbstractShape){
+                shapes.add((AbstractShape) component);
+            }
         }
         return this;
     }
 
     public boolean isEmpty(){
-        return components == null || components.isEmpty();
+        return shapes.isEmpty()||effects.isEmpty()|| modifiers.isEmpty();
     }
-
-    public boolean isValid(){
-        return !this.isEmpty();
+    public List<AbstractEffect> getEffects() {
+        return effects;
     }
-
-    public Spell setComponents(@NotNull List<AbstractSpellPart> components){
-        this.components = components;
-        return this;
+    public List<AbstractModifier> getModifiers() {
+        return modifiers;
     }
-
-    public List<AbstractSpellPart> getComponents() {
-        return components;
-    }
-
-    @Override
-    public Spell clone(){
-       try{
-           Spell clone = (Spell) super.clone();
-              clone.components = new ArrayList<>(this.components);
-              return clone;
-       }
-       catch (CloneNotSupportedException e){
-           throw new AssertionError();
-       }
+    public List<AbstractShape> getShapes() {
+        return shapes;
     }
 }

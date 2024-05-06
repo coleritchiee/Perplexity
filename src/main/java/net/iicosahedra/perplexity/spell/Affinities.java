@@ -1,8 +1,6 @@
 package net.iicosahedra.perplexity.spell;
 
 public class Affinities {
-    public static final String TEST = "test";
-
     public static final String FIRE = "fire";
     public static final String WATER = "water";
     public static final String EARTH = "earth";
@@ -18,11 +16,4 @@ public class Affinities {
     public static final String LUNAR = "lunar";
     public static final String THUNDER = "thunder";
     public static final String LIGHTNING = "lightning";
-
-    public static final String SUN = "sun";
-    public static final String ILLUSION = "illusion";
-    public static final String SORCERY = "sorcery";
-    public static final String WEATHER = "weather";
-    public static final String CORRUPTION = "corruption";
-    public static final String ATOMIC = "atomic";
 }

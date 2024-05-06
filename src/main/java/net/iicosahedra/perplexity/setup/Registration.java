@@ -2,6 +2,7 @@ package net.iicosahedra.perplexity.setup;
 
 import com.mojang.serialization.Codec;
 import net.iicosahedra.perplexity.Perplexity;
+import net.iicosahedra.perplexity.common.item.TestItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
@@ -51,6 +52,9 @@ public class Registration {
         //if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) event.accept(EXAMPLE_BLOCK_ITEM);
     }
 
+    public static final DeferredItem<Item> TEST_ITEM = ITEMS.register("test_item", () ->
+            new TestItem(new Item.Properties())
+    );
 
     //Stats
 
