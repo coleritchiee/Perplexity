@@ -33,7 +33,6 @@ public class EffectBreak extends AbstractEffect {
     public void onCastOnBlock(BlockHitResult blockHitResult, Level world, LivingEntity caster, SpellContext spellContext, SpellCasting resolver) {
         ItemStack stack = Items.NETHERITE_PICKAXE.getDefaultInstance();
         if(caster instanceof Player){
-            //FakePlayer player = FakePlayerFactory.get((ServerLevel) world, new GameProfile(caster.getUUID(), UsernameCache.getLastKnownUsername(caster.getUUID())));
             Block block =   caster.level().getBlockState(blockHitResult.getBlockPos()).getBlock();
             BlockState state = world.getBlockState(blockHitResult.getBlockPos());
             if(world.getBlockState(blockHitResult.getBlockPos()).getDestroySpeed(world, blockHitResult.getBlockPos())>=0) {
