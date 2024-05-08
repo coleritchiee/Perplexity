@@ -44,14 +44,15 @@ public class SpellCasting {
     }
 
     public boolean onCast(ItemStack stack, Level level){
+        boolean success = false;
         for (AbstractShape shape : shapes) {
             CastResult result = shape.onCast(stack, context.getCaster(), level, context, this);
             if(result == CastResult.SUCCESS){
                 expendMana();
             }
-            return result.success;
+            success =  result.success;
         }
-        return false;
+        return success;
     }
 
     private void expendMana() {

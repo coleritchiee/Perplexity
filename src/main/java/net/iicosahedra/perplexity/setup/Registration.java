@@ -79,7 +79,6 @@ public class Registration {
 
     public static final Supplier<AttachmentType<Integer>> MANA = ATTACHMENT_TYPES.register("mana", ()-> AttachmentType.<Integer>builder(()-> 0).serialize(Codec.INT).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> ABILITY_POWER = ATTACHMENT_TYPES.register("ability_power", ()-> AttachmentType.<Integer>builder(()-> 1).serialize(Codec.INT).copyOnDeath().build());
-
     public static final Supplier<AttachmentType<Integer>> MAGIC_RESIST = ATTACHMENT_TYPES.register("magic_resist", ()-> AttachmentType.<Integer>builder(()-> 0).serialize(Codec.INT).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> ABILITY_HASTE = ATTACHMENT_TYPES.register("ability_haste", ()-> AttachmentType.<Integer>builder(()-> 1).serialize(Codec.INT).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> CRIT_CHANCE = ATTACHMENT_TYPES.register("crit_chance", ()-> AttachmentType.<Integer>builder(()-> 0).serialize(Codec.INT).copyOnDeath().build());

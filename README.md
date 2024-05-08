@@ -16,8 +16,6 @@ Create help function for all custom + default attributes, for simplicity the mod
 
 Origin Skills(come up with list and implement)
 
-Magic system redesign(again)
-
 Artifacts
 
 Interesting Progression
