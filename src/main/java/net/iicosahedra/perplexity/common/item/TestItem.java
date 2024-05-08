@@ -3,6 +3,7 @@ package net.iicosahedra.perplexity.common.item;
 import net.iicosahedra.perplexity.spell.Spell;
 import net.iicosahedra.perplexity.spell.SpellCasting;
 import net.iicosahedra.perplexity.spell.effects.EffectBreak;
+import net.iicosahedra.perplexity.spell.shapes.ShapeProj;
 import net.iicosahedra.perplexity.spell.shapes.ShapeTouch;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -19,7 +20,7 @@ public class TestItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         Spell spell = new Spell();
-        spell.add(ShapeTouch.INSTANCE);
+        spell.add(ShapeProj.INSTANCE);
         spell.add(EffectBreak.INSTANCE);
         return SpellCasting.castSpell(pLevel, pPlayer, pUsedHand, spell);
     }

@@ -53,9 +53,6 @@ public class EntityProj extends Projectile {
         this(Registration.SPELL_PROJ.get(), world, casting);
     }
 
-    @Override
-    protected void defineSynchedData() {
-    }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder p_326003_) {
@@ -127,7 +124,7 @@ public class EntityProj extends Projectile {
             raytraceresult = entityraytraceresult;
         }
 
-        if (raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+        if (raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS) {
             this.onHit(raytraceresult);
             this.hasImpulse = true;
         }

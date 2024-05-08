@@ -1,9 +1,11 @@
 package net.iicosahedra.perplexity.setup;
 
 import com.mojang.serialization.Codec;
+import cpw.mods.modlauncher.api.ITransformationService;
 import net.iicosahedra.perplexity.Perplexity;
 import net.iicosahedra.perplexity.common.item.TestItem;
 import net.iicosahedra.perplexity.spell.entity.EntityProj;
+import net.iicosahedra.perplexity.util.ResourceLoc;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -32,7 +34,7 @@ public class Registration {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Perplexity.MODID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Perplexity.MODID);
 
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(new RegistryBuilder<EntityType<?>>(ResourceKey.createRegistryKey(new ResourceLocation(Perplexity.MODID, "ENTITY_TYPE"))).create(), Perplexity.MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, Perplexity.MODID);
 
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, Perplexity.MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Perplexity.MODID);
@@ -54,6 +56,7 @@ public class Registration {
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
         ATTACHMENT_TYPES.register(modEventBus);
+        ENTITY_TYPES.register(modEventBus);
 
     }
     public static void addCreative(BuildCreativeModeTabContentsEvent event) {
@@ -64,11 +67,13 @@ public class Registration {
             new TestItem(new Item.Properties())
     );
 
-    public static final DeferredHolder<EntityType<?>, EntityType<EntityProj>> SPELL_PROJ = ENTITIES.register("spell_proj", ()->
-            EntityType.Builder.of(EntityProj::new, MobCategory.MISC).sized(0.5f, 0.5f).noSave()
+    public static final DeferredHolder<EntityType<?>, EntityType<EntityProj>> SPELL_PROJ = ENTITY_TYPES.register("spell_proj", ()->
+            EntityType.Builder.<EntityProj>of(EntityProj::new, MobCategory.MISC)
+                    .sized(0.5f, 0.5f).noSave()
                     .setTrackingRange(32).fireImmune()
                     .setShouldReceiveVelocityUpdates(true)
-                    .setUpdateInterval(120));
+                    .setUpdateInterval(120)
+                    .build(ResourceLoc.create("spell_proj").toString()));
 
     //Stats
 
