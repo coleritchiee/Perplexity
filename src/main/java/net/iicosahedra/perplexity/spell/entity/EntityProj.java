@@ -28,7 +28,6 @@ public class EntityProj extends Projectile {
     public SpellCasting casting;
     public boolean isNoGravity = true;
     public boolean canTraversePortals = true;
-    public int prismRedirect;
 
     public Set<BlockPos> hitList = new HashSet<>();
 
@@ -36,10 +35,6 @@ public class EntityProj extends Projectile {
         super(type, world);
     }
 
-    public EntityProj(EntityType<? extends EntityProj> type, Level world, double x, double y, double z){
-        super(type, world);
-        setPos(x,y,z);
-    }
     public EntityProj(EntityType<? extends EntityProj> type, Level world, LivingEntity shooter){
         super(type, world);
         setOwner(shooter);
