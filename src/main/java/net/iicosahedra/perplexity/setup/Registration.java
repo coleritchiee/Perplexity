@@ -3,8 +3,14 @@ package net.iicosahedra.perplexity.setup;
 import com.mojang.serialization.Codec;
 import net.iicosahedra.perplexity.Perplexity;
 import net.iicosahedra.perplexity.common.item.TestItem;
+import net.iicosahedra.perplexity.spell.entity.EntityProj;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -14,9 +20,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 import net.neoforged.neoforge.registries.*;
 
 import java.util.function.Supplier;
@@ -25,6 +31,8 @@ import java.util.function.Supplier;
 public class Registration {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Perplexity.MODID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Perplexity.MODID);
+
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(new RegistryBuilder<EntityType<?>>(ResourceKey.createRegistryKey(new ResourceLocation(Perplexity.MODID, "ENTITY_TYPE"))).create(), Perplexity.MODID);
 
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, Perplexity.MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Perplexity.MODID);
@@ -55,6 +63,12 @@ public class Registration {
     public static final DeferredItem<Item> TEST_ITEM = ITEMS.register("test_item", () ->
             new TestItem(new Item.Properties())
     );
+
+    public static final DeferredHolder<EntityType<?>, EntityType<EntityProj>> SPELL_PROJ = ENTITIES.register("spell_proj", ()->
+            EntityType.Builder.of(EntityProj::new, MobCategory.MISC).sized(0.5f, 0.5f).noSave()
+                    .setTrackingRange(32).fireImmune()
+                    .setShouldReceiveVelocityUpdates(true)
+                    .setUpdateInterval(120));
 
     //Stats
 
