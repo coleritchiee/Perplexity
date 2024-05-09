@@ -1,5 +1,6 @@
 package net.iicosahedra.perplexity.common.item;
 
+import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.spell.Spell;
 import net.iicosahedra.perplexity.spell.SpellCasting;
 import net.iicosahedra.perplexity.spell.effects.EffectBreak;
@@ -23,8 +24,8 @@ public class TestItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         Spell spell = new Spell();
-        spell.add(ShapeSelf.INSTANCE);
-        spell.add(EffectDamage.INSTANCE);
+        spell.add(Registration.SHAPE_PROJ.get());
+        spell.add(Registration.EFFECT_DAMAGE.get());
         return SpellCasting.castSpell(pLevel, pPlayer, pUsedHand, spell);
     }
 }

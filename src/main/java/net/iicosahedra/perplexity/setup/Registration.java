@@ -4,8 +4,16 @@ import com.mojang.serialization.Codec;
 import cpw.mods.modlauncher.api.ITransformationService;
 import net.iicosahedra.perplexity.Perplexity;
 import net.iicosahedra.perplexity.common.item.TestItem;
+import net.iicosahedra.perplexity.spell.components.ISpellComponent;
+import net.iicosahedra.perplexity.spell.effects.EffectBreak;
+import net.iicosahedra.perplexity.spell.effects.EffectDamage;
+import net.iicosahedra.perplexity.spell.effects.EffectFling;
 import net.iicosahedra.perplexity.spell.entity.EntityProj;
+import net.iicosahedra.perplexity.spell.shapes.ShapeProj;
+import net.iicosahedra.perplexity.spell.shapes.ShapeSelf;
+import net.iicosahedra.perplexity.spell.shapes.ShapeTouch;
 import net.iicosahedra.perplexity.util.ResourceLoc;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -57,7 +65,7 @@ public class Registration {
         CREATIVE_MODE_TABS.register(modEventBus);
         ATTACHMENT_TYPES.register(modEventBus);
         ENTITY_TYPES.register(modEventBus);
-
+        SPELLS.register(modEventBus);
     }
     public static void addCreative(BuildCreativeModeTabContentsEvent event) {
         //if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) event.accept(EXAMPLE_BLOCK_ITEM);
@@ -86,4 +94,20 @@ public class Registration {
     public static final Supplier<AttachmentType<Boolean>> SPELL_CRIT = ATTACHMENT_TYPES.register("spell_crit", ()-> AttachmentType.<Boolean>builder(()-> false).serialize(Codec.BOOL).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> TIER = ATTACHMENT_TYPES.register("tier", ()-> AttachmentType.<Integer>builder(()-> 0).serialize(Codec.INT).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> AFFINITY = ATTACHMENT_TYPES.register("affinity", ()-> AttachmentType.<Integer>builder(()-> -1).serialize(Codec.INT).copyOnDeath().build());
+
+    //spell registry
+    public static final ResourceKey<Registry<ISpellComponent>> SPELL_KEY = ResourceKey.createRegistryKey(ResourceLoc.create("spell_components"));
+    public static final Registry<ISpellComponent>SPELL_REGISTRY = new RegistryBuilder<>(SPELL_KEY)
+            .sync(true)
+            .create();
+
+    public static final DeferredRegister<ISpellComponent> SPELLS = DeferredRegister.create(SPELL_REGISTRY,Perplexity.MODID);
+    public static final Supplier<ISpellComponent> EFFECT_BREAK = SPELLS.register("effect_break", EffectBreak::new);
+    public static final Supplier<ISpellComponent> EFFECT_DAMAGE = SPELLS.register("effect_damage", EffectDamage::new);
+    public static final Supplier<ISpellComponent> EFFECT_FLING = SPELLS.register("effect_fling", EffectFling::new);
+    public static final Supplier<ISpellComponent> SHAPE_PROJ = SPELLS.register("shape_proj", ShapeProj::new);
+    public static final Supplier<ISpellComponent> SHAPE_SELF = SPELLS.register("shape_self", ShapeSelf::new);
+    public static final Supplier<ISpellComponent> SHAPE_TOUCH = SPELLS.register("shape_touch", ShapeTouch::new);
+
+
 }

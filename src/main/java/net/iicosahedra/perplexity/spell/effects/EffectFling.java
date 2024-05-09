@@ -12,8 +12,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class EffectFling extends AbstractEffect {
-
-    public static final EffectFling INSTANCE = new EffectFling();
     public EffectFling() {
         super("effect.fling", "fling", 0, 0, Affinities.AIR);
 

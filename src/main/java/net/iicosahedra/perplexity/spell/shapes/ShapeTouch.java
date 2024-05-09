@@ -14,7 +14,6 @@ import net.minecraft.world.phys.HitResult;
 import javax.annotation.Nullable;
 
 public class ShapeTouch extends AbstractShape {
-    public static final ShapeTouch INSTANCE = new ShapeTouch();
 
     public ShapeTouch() {
         super("shape.touch", "touch", 0, 0);

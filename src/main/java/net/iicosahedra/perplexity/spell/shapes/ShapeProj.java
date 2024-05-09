@@ -12,9 +12,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class ShapeProj extends AbstractShape {
-
-    public static final ShapeProj INSTANCE = new ShapeProj();
-
     public ShapeProj() {
         super("shape.proj","proj",0,0);
     }

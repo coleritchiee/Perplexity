@@ -11,8 +11,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class ShapeSelf extends AbstractShape {
-    public static final ShapeSelf INSTANCE = new ShapeSelf();
-
     public ShapeSelf() {
         super("shape.self", "self", 0, 0);
     }

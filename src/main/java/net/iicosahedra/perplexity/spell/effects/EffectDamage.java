@@ -11,8 +11,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 
 public class EffectDamage extends AbstractEffect {
-    public static final EffectDamage INSTANCE = new EffectDamage();
-
     public EffectDamage() {
         super("effect.damagetest", "damage",0 ,0, Affinities.TYPELESS);
     }

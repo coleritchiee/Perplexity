@@ -30,6 +30,25 @@ public class SpellCasting {
         return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
     }
 
+    public static double processDamageScaling(double baseDamage, SpellContext context){
+        double newDamage = baseDamage;
+        double critScale = 1;
+        double apScale = baseDamage * ((double)context.getCaster().getData(Registration.ABILITY_POWER)/100);
+        if(context.getCaster().getData(Registration.SPELL_CRIT)){
+            double critChance = (double) context.getCaster().getData(Registration.CRIT_CHANCE);
+            if(Math.random()*100 < critChance){
+                critScale *= 2;
+            }
+        }
+        newDamage = (baseDamage+apScale)*critScale;
+        int lifeSteal = context.getCaster().getData(Registration.LIFE_STEAL);
+        if(lifeSteal>0){
+            float amount = (float)(((float) lifeSteal /100)*newDamage);
+            context.getCaster().heal(amount);
+        }
+        return newDamage;
+    }
+
     public List<AbstractShape> shapes =  new ArrayList<>();
     public List<AbstractEffect> effects = new ArrayList<>();
     public List<AbstractModifier> modifiers = new ArrayList<>();
