@@ -13,6 +13,16 @@ public class Spell {
     private List<AbstractEffect> effects = new ArrayList<>();
     private List<AbstractModifier> modifiers = new ArrayList<>();
 
+    private List<Integer> affinities = new ArrayList<>();
+
+    private int shapeCost;
+    private int effectCost;
+    private int modifierCost;
+
+    private int manaCost;
+
+    private int tier;
+
     private String name;
 
     public Spell(){}
@@ -25,16 +35,61 @@ public class Spell {
     public Spell add(ISpellComponent... components) {
         for(ISpellComponent component:components){
             if(component instanceof AbstractEffect){
+                if(((AbstractEffect) component).getTier() > tier){
+                    affinities.add(((AbstractEffect) component).getAffinity());
+                    tier = ((AbstractEffect) component).getTier();
+                }
                 effects.add((AbstractEffect) component);
             }
             if(component instanceof AbstractModifier){
+                if(((AbstractModifier) component).getTier() > tier){
+                    tier = ((AbstractModifier) component).getTier();
+                }
                 modifiers.add((AbstractModifier) component);
             }
             if(component instanceof AbstractShape){
+                if(((AbstractShape) component).getTier() > tier){
+                    tier = ((AbstractShape) component).getTier();
+                }
                 shapes.add((AbstractShape) component);
             }
         }
+        updateManaCost();
         return this;
+    }
+
+    private void updateManaCost() {
+        int i  = 0;
+        for(AbstractEffect effect: effects){
+            if(i == 0){
+                effectCost = effect.getManaCost();
+            }
+            else{
+                effectCost += effect.getManaCost();
+            }
+            i++;
+        }
+        i  = 0;
+        for(AbstractShape shape: shapes){
+            if(i == 0){
+                shapeCost = shape.getManaCost();
+            }
+            else{
+                shapeCost += shape.getManaCost();
+            }
+            i++;
+        }
+        i  = 0;
+        for(AbstractModifier modifier: modifiers){
+            if(i == 0){
+                modifierCost = modifier.getManaCost();
+            }
+            else{
+                modifierCost += modifier.getManaCost();
+            }
+            i++;
+        }
+        manaCost = effectCost+shapeCost+modifierCost;
     }
 
     public boolean isEmpty(){
@@ -48,5 +103,13 @@ public class Spell {
     }
     public List<AbstractShape> getShapes() {
         return shapes;
+    }
+
+    public int getManaCost(){
+        return manaCost;
+    }
+
+    public int getTier(){
+        return tier;
     }
 }

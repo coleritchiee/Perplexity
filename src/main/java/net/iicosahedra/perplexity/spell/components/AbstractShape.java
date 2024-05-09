@@ -13,18 +13,35 @@ import javax.annotation.Nullable;
 public abstract class AbstractShape implements ISpellComponent{
     private int manaCost;
 
+    private int tier;
+
     private final ResourceLocation registryName;
     private String name;
     public AbstractShape(ResourceLocation registryName, String name) {
         this.registryName = registryName;
         this.name = name;
     }
-    public AbstractShape(String tag, String name) {
+    public AbstractShape(String tag, String name, int tier, int manaCost) {
         this(ResourceLoc.create(tag), name);
+        this.tier = tier;
+        this.manaCost = manaCost;
     }
+
     public ResourceLocation getRegistryName() {
         return registryName;
     }
 
     public abstract CastResult onCast(@Nullable ItemStack stack, LivingEntity player, Level world, SpellContext context, SpellCasting casting);
+
+    public int getTier() {
+        return tier;
+    }
+
+    public void setTier(int tier) {
+        this.tier = tier;
+    }
+
+    public int getManaCost() {
+        return manaCost;
+    }
 }

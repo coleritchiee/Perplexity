@@ -16,7 +16,7 @@ public class ShapeProj extends AbstractShape {
     public static final ShapeProj INSTANCE = new ShapeProj();
 
     public ShapeProj() {
-        super("shape.proj", "proj");
+        super("shape.proj","proj",0,0);
     }
 
     @Override

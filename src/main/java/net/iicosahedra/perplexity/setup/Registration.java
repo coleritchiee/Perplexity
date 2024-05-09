@@ -84,4 +84,6 @@ public class Registration {
     public static final Supplier<AttachmentType<Integer>> CRIT_CHANCE = ATTACHMENT_TYPES.register("crit_chance", ()-> AttachmentType.<Integer>builder(()-> 0).serialize(Codec.INT).copyOnDeath().build());
     public static final Supplier<AttachmentType<Integer>> LIFE_STEAL = ATTACHMENT_TYPES.register("life_steal", ()-> AttachmentType.<Integer>builder(()-> 0).serialize(Codec.INT).copyOnDeath().build());
     public static final Supplier<AttachmentType<Boolean>> SPELL_CRIT = ATTACHMENT_TYPES.register("spell_crit", ()-> AttachmentType.<Boolean>builder(()-> false).serialize(Codec.BOOL).copyOnDeath().build());
+    public static final Supplier<AttachmentType<Integer>> TIER = ATTACHMENT_TYPES.register("tier", ()-> AttachmentType.<Integer>builder(()-> 0).serialize(Codec.INT).copyOnDeath().build());
+    public static final Supplier<AttachmentType<Integer>> AFFINITY = ATTACHMENT_TYPES.register("affinity", ()-> AttachmentType.<Integer>builder(()-> -1).serialize(Codec.INT).copyOnDeath().build());
 }

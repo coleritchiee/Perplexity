@@ -23,9 +23,8 @@ public class TestItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         Spell spell = new Spell();
-        spell.add(ShapeProj.INSTANCE);
         spell.add(ShapeSelf.INSTANCE);
-        spell.add(EffectFling.INSTANCE);
+        spell.add(EffectDamage.INSTANCE);
         return SpellCasting.castSpell(pLevel, pPlayer, pUsedHand, spell);
     }
 }

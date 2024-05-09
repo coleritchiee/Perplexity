@@ -1,5 +1,6 @@
 package net.iicosahedra.perplexity.spell.effects;
 
+import net.iicosahedra.perplexity.spell.Affinities;
 import net.iicosahedra.perplexity.spell.SpellCasting;
 import net.iicosahedra.perplexity.spell.SpellContext;
 import net.iicosahedra.perplexity.spell.components.AbstractEffect;
@@ -13,7 +14,7 @@ public class EffectDamage extends AbstractEffect {
     public static final EffectDamage INSTANCE = new EffectDamage();
 
     public EffectDamage() {
-        super("effect.damagetest", "damage");
+        super("effect.damagetest", "damage",0 ,0, Affinities.TYPELESS);
     }
 
     @Override

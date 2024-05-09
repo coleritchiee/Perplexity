@@ -14,7 +14,7 @@ public class ShapeSelf extends AbstractShape {
     public static final ShapeSelf INSTANCE = new ShapeSelf();
 
     public ShapeSelf() {
-        super("shape.self", "self");
+        super("shape.self", "self", 0, 0);
     }
 
     @Override

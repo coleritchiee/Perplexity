@@ -1,5 +1,6 @@
 package net.iicosahedra.perplexity.spell;
 
+import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.spell.components.AbstractEffect;
 import net.iicosahedra.perplexity.spell.components.AbstractModifier;
 import net.iicosahedra.perplexity.spell.components.AbstractShape;
@@ -44,6 +45,14 @@ public class SpellCasting {
     }
 
     public boolean onCast(ItemStack stack, Level level){
+        if(context.getCaster().getData(Registration.MANA)<spell.getManaCost()){
+            //TODO: Message player not enough mana
+            return false;
+        }
+        if(context.getCaster().getData(Registration.TIER)<spell.getTier()){
+            //TODO: Message player not high enough tier
+            return false;
+        }
         boolean success = false;
         for (AbstractShape shape : shapes) {
             CastResult result = shape.onCast(stack, context.getCaster(), level, context, this);
@@ -56,6 +65,7 @@ public class SpellCasting {
     }
 
     private void expendMana() {
+        context.getCaster().setData(Registration.MANA, context.getCaster().getData(Registration.MANA)- spell.getManaCost());
     }
 
     public void processEffects(HitResult result) {

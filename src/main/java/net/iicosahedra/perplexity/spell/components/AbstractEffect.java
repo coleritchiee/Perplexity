@@ -1,5 +1,6 @@
 package net.iicosahedra.perplexity.spell.components;
 
+import net.iicosahedra.perplexity.spell.Affinities;
 import net.iicosahedra.perplexity.spell.SpellCasting;
 import net.iicosahedra.perplexity.spell.SpellContext;
 import net.iicosahedra.perplexity.util.ResourceLoc;
@@ -12,7 +13,10 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractEffect implements ISpellComponent{
+    private int affinity;
     private int manaCost;
+
+    private int tier;
 
     private final ResourceLocation registryName;
     private String name;
@@ -20,8 +24,11 @@ public abstract class AbstractEffect implements ISpellComponent{
         this.registryName = registryName;
         this.name = name;
     }
-    public AbstractEffect(String tag, String name) {
+    public AbstractEffect(String tag, String name, int tier, int manaCost, int affinity) {
         this(ResourceLoc.create(tag), name);
+        this.affinity = affinity;
+        this.tier = tier;
+        this.manaCost = manaCost;
     }
     public void onCast(HitResult hitResult, Level world, @NotNull LivingEntity caster, SpellContext spellContext, SpellCasting casting) {
         if(hitResult instanceof BlockHitResult blockHitResult){
@@ -39,5 +46,21 @@ public abstract class AbstractEffect implements ISpellComponent{
     }
 
     public void onCastOnBlock(BlockHitResult blockHitResult, Level world, LivingEntity caster, SpellContext spellContext, SpellCasting casting) {
+    }
+
+    public int getTier() {
+        return tier;
+    }
+
+    public int getManaCost() {
+        return manaCost;
+    }
+
+    public int getAffinity(){
+        return affinity;
+    }
+
+    public void setTier(int tier) {
+        this.tier = tier;
     }
 }

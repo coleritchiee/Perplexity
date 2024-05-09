@@ -26,7 +26,7 @@ public class EffectBreak extends AbstractEffect {
     public static final EffectBreak INSTANCE = new EffectBreak();
 
     public EffectBreak() {
-        super("effect.break", Affinities.EARTH);
+        super("effect.break", "break", 0, 0, Affinities.EARTH);
     }
 
     @Override

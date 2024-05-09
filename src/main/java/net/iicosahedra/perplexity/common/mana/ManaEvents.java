@@ -21,5 +21,10 @@ public class ManaEvents {
         player.getData(Registration.CRIT_CHANCE);
         player.getData(Registration.LIFE_STEAL);
         player.getData(Registration.SPELL_CRIT);
+        player.getData(Registration.TIER);
+        if(player.getData(Registration.AFFINITY)==-1){
+            //TODO make random
+            player.setData(Registration.AFFINITY, 0);
+        }
     }
 }
