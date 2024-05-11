@@ -1,8 +1,10 @@
 package net.iicosahedra.perplexity.spell.shapes;
+import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.spell.SpellCasting;
 import net.iicosahedra.perplexity.spell.SpellContext;
 import net.iicosahedra.perplexity.spell.components.AbstractShape;
 import net.iicosahedra.perplexity.spell.targeting.CastResult;
+import net.iicosahedra.perplexity.util.ResourceLoc;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -12,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ShapeSelf extends AbstractShape {
     public ShapeSelf() {
-        super("shape.self", "self", 0, 0);
+        super(ResourceLoc.create("shape.self"), "self", 0, 0);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import cpw.mods.modlauncher.api.ITransformationService;
 import net.iicosahedra.perplexity.Perplexity;
 import net.iicosahedra.perplexity.common.item.TestItem;
+import net.iicosahedra.perplexity.common.item.TestSetItem;
 import net.iicosahedra.perplexity.spell.Spell;
 import net.iicosahedra.perplexity.spell.components.ISpellComponent;
 import net.iicosahedra.perplexity.spell.effects.EffectBreak;
@@ -18,6 +19,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -82,6 +84,9 @@ public class Registration {
             new TestItem(new Item.Properties())
     );
 
+    public static final DeferredItem<Item> TEST_SET_ITEM = ITEMS.register("test_set_item", () ->
+            new TestSetItem(new Item.Properties()));
+
     public static final DeferredHolder<EntityType<?>, EntityType<EntityProj>> SPELL_PROJ = ENTITY_TYPES.register("spell_proj", ()->
             EntityType.Builder.<EntityProj>of(EntityProj::new, MobCategory.MISC)
                     .sized(0.5f, 0.5f).noSave()
@@ -109,19 +114,15 @@ public class Registration {
             .create();
 
     public static final DeferredRegister<ISpellComponent> SPELLS = DeferredRegister.create(SPELL_REGISTRY,Perplexity.MODID);
-    public static final Supplier<ISpellComponent> EFFECT_BREAK = SPELLS.register("effect_break", EffectBreak::new);
-    public static final Supplier<ISpellComponent> EFFECT_DAMAGE = SPELLS.register("effect_damage", EffectDamage::new);
-    public static final Supplier<ISpellComponent> EFFECT_FLING = SPELLS.register("effect_fling", EffectFling::new);
-    public static final Supplier<ISpellComponent> SHAPE_PROJ = SPELLS.register("shape_proj", ShapeProj::new);
-    public static final Supplier<ISpellComponent> SHAPE_SELF = SPELLS.register("shape_self", ShapeSelf::new);
-    public static final Supplier<ISpellComponent> SHAPE_TOUCH = SPELLS.register("shape_touch", ShapeTouch::new);
+    public static final Supplier<ISpellComponent> EFFECT_BREAK = SPELLS.register("effect.break", EffectBreak::new);
+    public static final Supplier<ISpellComponent> EFFECT_DAMAGE = SPELLS.register("effect.damage", EffectDamage::new);
+    public static final Supplier<ISpellComponent> EFFECT_FLING = SPELLS.register("effect.fling", EffectFling::new);
+    public static final Supplier<ISpellComponent> SHAPE_PROJ = SPELLS.register("shape.proj", ShapeProj::new);
+    public static final Supplier<ISpellComponent> SHAPE_SELF = SPELLS.register("shape.self", ShapeSelf::new);
+    public static final Supplier<ISpellComponent> SHAPE_TOUCH = SPELLS.register("shape.touch", ShapeTouch::new);
 
     //Data Components
-   /* public static DeferredHolder<DataComponentType<?>, DataComponentType<Spell>> SPELL = DATA_COMPONENTS.registerComponentType(
-            "spell", builder -> builder.persistent(Spell.SPELL_CODEC).build();
-    )
-
-    */
-
+   public static DeferredHolder<DataComponentType<?>, DataComponentType<Spell>> SPELL = DATA_COMPONENTS.register("spell", ()->
+       DataComponentType.<Spell>builder().persistent(Spell.SPELL_CODEC).networkSynchronized(ByteBufCodecs.fromCodec(Spell.SPELL_CODEC)).build());
 
 }

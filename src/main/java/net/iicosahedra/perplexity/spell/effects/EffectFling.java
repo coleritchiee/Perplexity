@@ -1,9 +1,11 @@
 package net.iicosahedra.perplexity.spell.effects;
 
+import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.spell.Affinities;
 import net.iicosahedra.perplexity.spell.SpellCasting;
 import net.iicosahedra.perplexity.spell.SpellContext;
 import net.iicosahedra.perplexity.spell.components.AbstractEffect;
+import net.iicosahedra.perplexity.util.ResourceLoc;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,7 +15,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class EffectFling extends AbstractEffect {
     public EffectFling() {
-        super("effect.fling", "fling", 0, 0, Affinities.AIR);
+        super(ResourceLoc.create("effect.fling"), "fling", 0, 0, Affinities.AIR);
 
     }
     @Override

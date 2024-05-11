@@ -1,10 +1,12 @@
 package net.iicosahedra.perplexity.spell.effects;
 
 import com.mojang.authlib.GameProfile;
+import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.spell.Affinities;
 import net.iicosahedra.perplexity.spell.SpellCasting;
 import net.iicosahedra.perplexity.spell.SpellContext;
 import net.iicosahedra.perplexity.spell.components.AbstractEffect;
+import net.iicosahedra.perplexity.util.ResourceLoc;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,7 +26,7 @@ import net.neoforged.neoforge.common.util.FakePlayerFactory;
 
 public class EffectBreak extends AbstractEffect {
     public EffectBreak() {
-        super("effect.break", "break", 0, 0, Affinities.EARTH);
+        super(ResourceLoc.create("effect.break"), "break", 0, 0, Affinities.EARTH);
     }
 
     @Override

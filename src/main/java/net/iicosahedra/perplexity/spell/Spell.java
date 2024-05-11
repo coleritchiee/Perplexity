@@ -1,7 +1,9 @@
 package net.iicosahedra.perplexity.spell;
 
-import com.mojang.serialization.Codec;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.spell.components.AbstractEffect;
 import net.iicosahedra.perplexity.spell.components.AbstractModifier;
 import net.iicosahedra.perplexity.spell.components.AbstractShape;
@@ -123,5 +125,27 @@ public class Spell {
         return tier;
     }
 
-    //public static final Codec<Spell> SPELL_CODEC = RecordCodecBuilder.create(spellInstance ->
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    public static final Codec<Spell> SPELL_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.STRING.fieldOf("name").forGetter(spell -> spell.name),
+            Codec.list(ResourceLocation.CODEC).fieldOf("componentList").forGetter(Spell::getComponentList)
+    ).apply(instance, (name, componentList) -> {
+        List<ISpellComponent> components = new ArrayList<>();
+        for(ResourceLocation component: componentList){
+            if(component != null && Registration.SPELL_REGISTRY.get(component) != null) {
+                components.add(Registration.SPELL_REGISTRY.get(component));
+            }
+        }
+        return new Spell(name, components.toArray(new ISpellComponent[0]));
+    }));
+
 }

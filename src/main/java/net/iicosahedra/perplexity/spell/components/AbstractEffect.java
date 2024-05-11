@@ -23,12 +23,9 @@ public abstract class AbstractEffect implements ISpellComponent{
 
     private final ResourceLocation registryName;
     private String name;
-    public AbstractEffect(ResourceLocation registryName, String name) {
+    public AbstractEffect(ResourceLocation registryName, String name, int tier, int manaCost, int affinity) {
         this.registryName = registryName;
         this.name = name;
-    }
-    public AbstractEffect(String tag, String name, int tier, int manaCost, int affinity) {
-        this(ResourceLoc.create(tag), name);
         this.affinity = affinity;
         this.tier = tier;
         this.manaCost = manaCost;

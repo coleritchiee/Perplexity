@@ -10,12 +10,9 @@ public abstract class AbstractModifier implements ISpellComponent{
 
     private final ResourceLocation registryName;
     private String name;
-    public AbstractModifier(ResourceLocation registryName, String name) {
+    public AbstractModifier(ResourceLocation registryName, String name, int tier, int manaCost) {
         this.registryName = registryName;
         this.name = name;
-    }
-    public AbstractModifier(String tag, String name, int tier, int manaCost) {
-        this(ResourceLoc.create(tag), name);
         this.tier = tier;
         this.manaCost = manaCost;
     }

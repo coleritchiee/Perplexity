@@ -17,12 +17,9 @@ public abstract class AbstractShape implements ISpellComponent{
 
     private final ResourceLocation registryName;
     private String name;
-    public AbstractShape(ResourceLocation registryName, String name) {
+    public AbstractShape(ResourceLocation registryName, String name, int tier, int manaCost) {
         this.registryName = registryName;
         this.name = name;
-    }
-    public AbstractShape(String tag, String name, int tier, int manaCost) {
-        this(ResourceLoc.create(tag), name);
         this.tier = tier;
         this.manaCost = manaCost;
     }
