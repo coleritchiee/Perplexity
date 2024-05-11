@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import cpw.mods.modlauncher.api.ITransformationService;
 import net.iicosahedra.perplexity.Perplexity;
 import net.iicosahedra.perplexity.common.item.TestItem;
+import net.iicosahedra.perplexity.spell.Spell;
 import net.iicosahedra.perplexity.spell.components.ISpellComponent;
 import net.iicosahedra.perplexity.spell.effects.EffectBreak;
 import net.iicosahedra.perplexity.spell.effects.EffectDamage;
@@ -14,6 +15,7 @@ import net.iicosahedra.perplexity.spell.shapes.ShapeSelf;
 import net.iicosahedra.perplexity.spell.shapes.ShapeTouch;
 import net.iicosahedra.perplexity.util.ResourceLoc;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -35,6 +37,8 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 import net.neoforged.neoforge.registries.*;
 
+import javax.swing.*;
+import java.rmi.registry.RegistryHandler;
 import java.util.function.Supplier;
 
 
@@ -43,6 +47,8 @@ public class Registration {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Perplexity.MODID);
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, Perplexity.MODID);
+
+    public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Perplexity.MODID);
 
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, Perplexity.MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Perplexity.MODID);
@@ -66,6 +72,7 @@ public class Registration {
         ATTACHMENT_TYPES.register(modEventBus);
         ENTITY_TYPES.register(modEventBus);
         SPELLS.register(modEventBus);
+        DATA_COMPONENTS.register(modEventBus);
     }
     public static void addCreative(BuildCreativeModeTabContentsEvent event) {
         //if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) event.accept(EXAMPLE_BLOCK_ITEM);
@@ -108,6 +115,13 @@ public class Registration {
     public static final Supplier<ISpellComponent> SHAPE_PROJ = SPELLS.register("shape_proj", ShapeProj::new);
     public static final Supplier<ISpellComponent> SHAPE_SELF = SPELLS.register("shape_self", ShapeSelf::new);
     public static final Supplier<ISpellComponent> SHAPE_TOUCH = SPELLS.register("shape_touch", ShapeTouch::new);
+
+    //Data Components
+   /* public static DeferredHolder<DataComponentType<?>, DataComponentType<Spell>> SPELL = DATA_COMPONENTS.registerComponentType(
+            "spell", builder -> builder.persistent(Spell.SPELL_CODEC).build();
+    )
+
+    */
 
 
 }

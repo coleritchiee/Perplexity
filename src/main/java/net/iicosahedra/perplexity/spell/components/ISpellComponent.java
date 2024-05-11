@@ -1,5 +1,7 @@
 package net.iicosahedra.perplexity.spell.components;
 
-public interface ISpellComponent {
+import net.minecraft.resources.ResourceLocation;
 
+public interface ISpellComponent {
+    public ResourceLocation getRegistryName();
 }

@@ -1,6 +1,9 @@
 package net.iicosahedra.perplexity.spell.components;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.iicosahedra.perplexity.spell.Affinities;
+import net.iicosahedra.perplexity.spell.Spell;
 import net.iicosahedra.perplexity.spell.SpellCasting;
 import net.iicosahedra.perplexity.spell.SpellContext;
 import net.iicosahedra.perplexity.util.ResourceLoc;
@@ -63,4 +66,5 @@ public abstract class AbstractEffect implements ISpellComponent{
     public void setTier(int tier) {
         this.tier = tier;
     }
+
 }

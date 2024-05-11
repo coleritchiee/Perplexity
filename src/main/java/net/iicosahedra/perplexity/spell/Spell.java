@@ -1,9 +1,12 @@
 package net.iicosahedra.perplexity.spell;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.iicosahedra.perplexity.spell.components.AbstractEffect;
 import net.iicosahedra.perplexity.spell.components.AbstractModifier;
 import net.iicosahedra.perplexity.spell.components.AbstractShape;
 import net.iicosahedra.perplexity.spell.components.ISpellComponent;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,8 @@ public class Spell {
     private List<AbstractShape> shapes = new ArrayList<>();
     private List<AbstractEffect> effects = new ArrayList<>();
     private List<AbstractModifier> modifiers = new ArrayList<>();
+
+    private List<ResourceLocation> componentList = new ArrayList<>();
 
     private List<Integer> affinities = new ArrayList<>();
 
@@ -53,6 +58,7 @@ public class Spell {
                 }
                 shapes.add((AbstractShape) component);
             }
+            componentList.add(component.getRegistryName());
         }
         updateManaCost();
         return this;
@@ -105,6 +111,10 @@ public class Spell {
         return shapes;
     }
 
+    public List<ResourceLocation> getComponentList(){
+        return componentList;
+    }
+
     public int getManaCost(){
         return manaCost;
     }
@@ -112,4 +122,6 @@ public class Spell {
     public int getTier(){
         return tier;
     }
+
+    //public static final Codec<Spell> SPELL_CODEC = RecordCodecBuilder.create(spellInstance ->
 }
