@@ -5,6 +5,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -20,6 +21,8 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Mod(Perplexity.MODID)
@@ -30,7 +33,8 @@ public class DataGenerators {
        // generator.addProvider(event.includeServer(), new ModRecipes(generator));
         ModBlockTags blockTags = new ModBlockTags(generator, event.getLookupProvider() ,event.getExistingFileHelper());
         generator.addProvider(event.includeServer(), blockTags);
-        //generator.addProvider(event.includeServer(), ModLootTableProvider.create(generator));
+        generator.addProvider(event.includeServer(), new LootTableProvider(event.getGenerator().getPackOutput(), Collections.emptySet(),
+                List.of(new LootTableProvider.SubProviderEntry(ModLootTables::new, LootContextParamSets.BLOCK)), event.getLookupProvider()));
         generator.addProvider(event.includeServer(), new ModItemTags(generator, event.getLookupProvider(), blockTags.contentsGetter(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new ModBlockStates(generator, event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new ModItemModels(generator, event.getExistingFileHelper()));
@@ -92,10 +96,10 @@ class ModLanguageProvider extends LanguageProvider {
         add(Registration.CREATIVE_MODE_TABS.getNamespace(), "Arcanism");
     }
 }
-/*
+
 class ModRecipes extends RecipeProvider{
-    public ModRecipes(DataGenerator generator){
-        super(generator.getPackOutput(), );
+    public ModRecipes(DataGenerator generator, CompletableFuture<HolderLookup.Provider> completableFuture){
+        super(generator.getPackOutput(), completableFuture);
     }
 
     @Override
@@ -104,29 +108,9 @@ class ModRecipes extends RecipeProvider{
     }
 }
 
-class ModLootTableProvider{
-    public static LootTableProvider create(DataGenerator gen){
-        return new LootTableProvider(gen.getPackOutput(), Set.of(), List.of(
-                new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK)
-        ));
-    }
-}
-
-
-class ModBlockLootTables extends BlockLootSubProvider {
-
-    protected ModBlockLootTables() {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags());
-    }
-
+class ModLootTables extends VanillaBlockLoot{
     @Override
     protected void generate() {
-
-    }
-
-    @Override
-    protected Iterable<Block> getKnownBlocks() {
-        return Registration.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
+        super.generate();
     }
 }
-*/
