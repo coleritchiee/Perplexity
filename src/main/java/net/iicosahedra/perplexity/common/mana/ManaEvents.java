@@ -23,7 +23,7 @@ public class ManaEvents {
         player.getData(Registration.SPELL_CRIT);
         player.getData(Registration.TIER);
         if(player.getData(Registration.AFFINITY)==-1){
-            //TODO make random
+            //TODO: make random
             player.setData(Registration.AFFINITY, 0);
         }
     }

@@ -8,13 +8,17 @@ X Add Affinities
 
 Stats math
 
-Create Spell Singleton through neoforge registries
+Rituals
 
-Spell Codec + Attachable Data Components
+Spell Cooldowns
+
+Make more spell components and integrate modifiers
+
+X Create Spell Singleton through neoforge registries
+
+X Spell Codec + Attachable Data Components
 
 X Add math for calculating mana costs
-
-Create help function for all custom + default attributes, for simplicity the mod should handle all the getting/setting in a consistant way
 
 Origin Skills(come up with list and implement)
 

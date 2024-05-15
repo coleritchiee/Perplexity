@@ -1,7 +1,7 @@
 package net.iicosahedra.perplexity.common.block;
 
 import net.iicosahedra.perplexity.ritual.RitualContext;
-import net.iicosahedra.perplexity.ritual.rituals.RitualHelper;
+import net.iicosahedra.perplexity.ritual.RitualHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;

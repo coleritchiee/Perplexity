@@ -1,29 +1,28 @@
 package net.iicosahedra.perplexity.ritual;
 
-import oshi.util.tuples.Pair;
+import com.mojang.datafixers.util.Pair;
+import net.iicosahedra.perplexity.setup.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractRitual {
     String name;
-    List<Pair<BlockPos, Block>> blocks = new ArrayList<>();
+    List<BlockPos> blocks = new ArrayList<>();
 
-    public AbstractRitual(String name){
+    public AbstractRitual(String name, BlockPos[] shape){
         this.name = name;
-    }
-
-    public void setShape(List<Pair<BlockPos, Block>> shape){
-        this.blocks = shape;
+        this.blocks = Arrays.stream(shape).toList();
     }
 
     public boolean matches(Level world, BlockPos activationPoint){
-        for (Pair<BlockPos, Block> offset : blocks) {
-            if (!world.getBlockState(activationPoint.offset(offset.getA())).getBlock().equals(offset.getB())) {
+        for (BlockPos offset : blocks) {
+            if (!world.getBlockState(activationPoint.offset(offset)).getBlock().equals(Registration.EXAMPLE_BLOCK.get())) {
                 return false;
             }
         }
