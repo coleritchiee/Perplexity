@@ -3,6 +3,8 @@ package net.iicosahedra.perplexity.setup;
 import com.mojang.serialization.Codec;
 import cpw.mods.modlauncher.api.ITransformationService;
 import net.iicosahedra.perplexity.Perplexity;
+import net.iicosahedra.perplexity.common.block.SpellStructureHead;
+import net.iicosahedra.perplexity.common.block.SpellStructureHeadEntity;
 import net.iicosahedra.perplexity.common.block.TestBlock;
 import net.iicosahedra.perplexity.common.item.TestItem;
 import net.iicosahedra.perplexity.common.item.TestSetItem;
@@ -32,6 +34,8 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
@@ -55,6 +59,8 @@ public class Registration {
 
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, Perplexity.MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Perplexity.MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Perplexity.MODID);
+
     public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", TestBlock::new);
     public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
     public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
@@ -94,6 +100,13 @@ public class Registration {
                     .setShouldReceiveVelocityUpdates(true)
                     .setUpdateInterval(120)
                     .build(ResourceLoc.create("spell_proj").toString()));
+
+    //Blocks
+    public static final DeferredBlock<SpellStructureHead> SPELL_STRUCTURE_HEAD = BLOCKS.register("spell_structure_head", SpellStructureHead::new);
+
+    //BlockEntities
+    public static final Supplier<BlockEntityType<SpellStructureHeadEntity>> SPELL_STRUCTURE_HEAD_ENTITY = BLOCK_ENTITIES.register("spell_structure_head_entity", () ->
+            BlockEntityType.Builder.of(SpellStructureHeadEntity::new, SPELL_STRUCTURE_HEAD.get()).build(null));
 
     //Stats
 
