@@ -103,6 +103,7 @@ public class Registration {
 
     //Blocks
     public static final DeferredBlock<SpellStructureHead> SPELL_STRUCTURE_HEAD = BLOCKS.register("spell_structure_head", SpellStructureHead::new);
+    public static final DeferredItem<BlockItem> SPELL_STRUCTURE_HEAD_ITEM = ITEMS.registerSimpleBlockItem("spell_structure_head", SPELL_STRUCTURE_HEAD);
 
     //BlockEntities
     public static final Supplier<BlockEntityType<SpellStructureHeadEntity>> SPELL_STRUCTURE_HEAD_ENTITY = BLOCK_ENTITIES.register("spell_structure_head_entity", () ->
