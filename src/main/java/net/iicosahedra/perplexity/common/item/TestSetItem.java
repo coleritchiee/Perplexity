@@ -20,8 +20,8 @@ public class TestSetItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         Spell spell = new Spell("spell");
         spell.add(Registration.SHAPE_SELF.get());
-        spell.add(Registration.EFFECT_DAMAGE.get());
-        BlockPos headPos = new BlockPos(2,16,438);
+        spell.add(Registration.EFFECT_FLING.get());
+        BlockPos headPos = new BlockPos(3,16,438);
         SpellMapSavedDataManager.INSTANCE.addSpell(SpellMapSavedDataManager.hashBlockPos(headPos), spell);
         return super.use(pLevel, pPlayer, pUsedHand);
     }

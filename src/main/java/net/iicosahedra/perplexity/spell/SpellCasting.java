@@ -21,8 +21,10 @@ import java.util.List;
 public class SpellCasting {
     public static InteractionResultHolder<ItemStack> castSpell(Level world, LivingEntity entity, InteractionHand hand, Spell spell){
         ItemStack stack = entity.getItemInHand(hand);
-        if(spell == null&&world.isClientSide){
-            entity.sendSystemMessage(Component.nullToEmpty("Spell not valid"));
+        if(spell == null){
+            if(world.isClientSide) {
+                entity.sendSystemMessage(Component.nullToEmpty("Spell not valid"));
+            }
             return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
         }
         SpellCasting casting = new SpellCasting(spell, new SpellContext(spell, entity, world));

@@ -1,5 +1,7 @@
 package net.iicosahedra.perplexity.common.item;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.JsonOps;
 import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.spell.Spell;
 import net.iicosahedra.perplexity.spell.SpellCasting;
@@ -21,8 +23,10 @@ public class TestItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        BlockPos headPos = new BlockPos(2,16,438);
-        SpellCasting.castSpell(pLevel, pPlayer, pUsedHand, SpellMapSavedDataManager.INSTANCE.getSpell(SpellMapSavedDataManager.hashBlockPos(headPos)));
+        BlockPos headPos = new BlockPos(3,16,438);
+        pPlayer.getMainHandItem().set(Registration.SPELL, SpellMapSavedDataManager.hashBlockPos(headPos));
+        Integer key = pPlayer.getMainHandItem().get(Registration.SPELL);
+        SpellCasting.castSpell(pLevel, pPlayer, pUsedHand, SpellMapSavedDataManager.INSTANCE.getSpell(key));
         return super.use(pLevel,pPlayer,pUsedHand);
     }
 }

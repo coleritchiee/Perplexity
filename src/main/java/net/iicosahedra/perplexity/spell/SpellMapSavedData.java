@@ -46,8 +46,8 @@ public class SpellMapSavedData extends SavedData {
                     });
 
         }
-        tag.put("spell_data_map", tag);
-        return tag;
+        p_77763_.put("spell_data_map", tag);
+        return p_77763_;
     }
 
     public void addSpell(int spellId, Spell spell){

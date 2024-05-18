@@ -25,7 +25,10 @@ public class SpellMapSavedDataManager {
         data.removeSpell(key);
     }
 
-    public Spell getSpell(int key) {
+    public Spell getSpell(Integer key) {
+        if(key == null){
+            return null;
+        }
         SpellMapSavedData data = SpellMapSavedData.get(level);
         return data.getSpell(key);
     }
