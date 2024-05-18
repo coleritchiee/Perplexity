@@ -3,6 +3,9 @@ package net.iicosahedra.perplexity.common.item;
 import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.spell.Spell;
 import net.iicosahedra.perplexity.spell.SpellCasting;
+import net.iicosahedra.perplexity.spell.SpellMapSavedData;
+import net.iicosahedra.perplexity.spell.SpellMapSavedDataManager;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -18,10 +21,12 @@ public class TestItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        if(pPlayer.getItemInHand(pUsedHand) != pPlayer.getMainHandItem()){
-            return new InteractionResultHolder<>(InteractionResult.FAIL, pPlayer.getOffhandItem());
-        }
-        Spell newSpell =  pPlayer.getMainHandItem().get(Registration.SPELL);
-        return SpellCasting.castSpell(pLevel, pPlayer, pUsedHand, newSpell);
+        Spell spell = new Spell("sasda");
+        spell.add(Registration.SHAPE_PROJ.get());
+        spell.add(Registration.EFFECT_BREAK.get());
+        BlockPos headPos = new BlockPos(0,0,0);
+        SpellMapSavedDataManager.INSTANCE.addSpell(SpellMapSavedDataManager.hashBlockPos(headPos), spell);
+        SpellCasting.castSpell(pLevel, pPlayer, pUsedHand, SpellMapSavedDataManager.INSTANCE.getSpell(SpellMapSavedDataManager.hashBlockPos(headPos)));
+        return super.use(pLevel,pPlayer,pUsedHand);
     }
 }
