@@ -136,7 +136,7 @@ public class Registration {
     public static final Supplier<ISpellComponent> SHAPE_TOUCH = SPELLS.register("shape.touch", ShapeTouch::new);
 
     //Data Components
-   public static DeferredHolder<DataComponentType<?>, DataComponentType<Spell>> SPELL = DATA_COMPONENTS.register("spell", ()->
-       DataComponentType.<Spell>builder().persistent(Spell.SPELL_CODEC).networkSynchronized(ByteBufCodecs.fromCodec(Spell.SPELL_CODEC)).build());
+   public static DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SPELL = DATA_COMPONENTS.register("spell_key", ()->
+       DataComponentType.<Integer>builder().persistent(Codec.INT).networkSynchronized(ByteBufCodecs.fromCodec(Codec.INT)).build());
 
 }

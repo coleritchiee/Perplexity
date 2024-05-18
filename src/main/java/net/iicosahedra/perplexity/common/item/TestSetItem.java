@@ -2,6 +2,8 @@ package net.iicosahedra.perplexity.common.item;
 
 import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.spell.Spell;
+import net.iicosahedra.perplexity.spell.SpellMapSavedDataManager;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +21,8 @@ public class TestSetItem extends Item {
         Spell spell = new Spell("spell");
         spell.add(Registration.SHAPE_SELF.get());
         spell.add(Registration.EFFECT_DAMAGE.get());
-        pPlayer.getOffhandItem().set(Registration.SPELL,spell);
+        BlockPos headPos = new BlockPos(2,16,438);
+        SpellMapSavedDataManager.INSTANCE.addSpell(SpellMapSavedDataManager.hashBlockPos(headPos), spell);
         return super.use(pLevel, pPlayer, pUsedHand);
     }
 }

@@ -21,11 +21,7 @@ public class TestItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        Spell spell = new Spell("sasda");
-        spell.add(Registration.SHAPE_PROJ.get());
-        spell.add(Registration.EFFECT_BREAK.get());
-        BlockPos headPos = new BlockPos(0,0,0);
-        SpellMapSavedDataManager.INSTANCE.addSpell(SpellMapSavedDataManager.hashBlockPos(headPos), spell);
+        BlockPos headPos = new BlockPos(2,16,438);
         SpellCasting.castSpell(pLevel, pPlayer, pUsedHand, SpellMapSavedDataManager.INSTANCE.getSpell(SpellMapSavedDataManager.hashBlockPos(headPos)));
         return super.use(pLevel,pPlayer,pUsedHand);
     }

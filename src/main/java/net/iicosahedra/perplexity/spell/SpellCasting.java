@@ -5,6 +5,7 @@ import net.iicosahedra.perplexity.spell.components.AbstractEffect;
 import net.iicosahedra.perplexity.spell.components.AbstractModifier;
 import net.iicosahedra.perplexity.spell.components.AbstractShape;
 import net.iicosahedra.perplexity.spell.targeting.CastResult;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -18,8 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpellCasting {
-    public static InteractionResultHolder<ItemStack> castSpell(Level world, LivingEntity entity, InteractionHand hand, @NotNull Spell spell){
+    public static InteractionResultHolder<ItemStack> castSpell(Level world, LivingEntity entity, InteractionHand hand, Spell spell){
         ItemStack stack = entity.getItemInHand(hand);
+        if(spell == null&&world.isClientSide){
+            entity.sendSystemMessage(Component.nullToEmpty("Spell not valid"));
+            return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
+        }
         SpellCasting casting = new SpellCasting(spell, new SpellContext(spell, entity, world));
         if (world.isClientSide && !spell.isEmpty()) {
             return InteractionResultHolder.pass(entity.getItemInHand(hand));
