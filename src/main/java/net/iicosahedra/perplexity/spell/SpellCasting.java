@@ -23,7 +23,7 @@ public class SpellCasting {
         ItemStack stack = entity.getItemInHand(hand);
         if(spell == null){
             if(world.isClientSide) {
-                entity.sendSystemMessage(Component.nullToEmpty("Spell not valid"));
+                entity.sendSystemMessage(Component.translatable("Spell not valid"));
             }
             return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
         }
@@ -72,11 +72,11 @@ public class SpellCasting {
 
     public boolean onCast(ItemStack stack, Level level){
         if(context.getCaster().getData(Registration.MANA)<spell.getManaCost()){
-            //TODO: Message player not enough mana
+            context.getCaster().sendSystemMessage(Component.translatable("You do not have enough mana to cast this spell"));
             return false;
         }
         if(context.getCaster().getData(Registration.TIER)<spell.getTier()){
-            //TODO: Message player not high enough tier
+            context.getCaster().sendSystemMessage(Component.translatable("You are not high enough circle to cast this spell"));
             return false;
         }
         boolean success = false;
