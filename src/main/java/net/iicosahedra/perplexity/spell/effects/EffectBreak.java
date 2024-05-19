@@ -7,6 +7,7 @@ import net.iicosahedra.perplexity.spell.SpellCasting;
 import net.iicosahedra.perplexity.spell.SpellContext;
 import net.iicosahedra.perplexity.spell.components.AbstractEffect;
 import net.iicosahedra.perplexity.util.ResourceLoc;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.common.CommonHooks;
@@ -24,9 +26,23 @@ import net.neoforged.neoforge.common.UsernameCache;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class EffectBreak extends AbstractEffect {
     public EffectBreak() {
         super(ResourceLoc.create("effect.break"), "break", 0, 0, Affinities.EARTH);
+    }
+    public final Map<BlockPos, Block> shape = new HashMap<>() {{
+        put(new BlockPos(1, 0, 0), Blocks.STONE);
+        put(new BlockPos(0, 0, 0), Blocks.STONE);
+        put(new BlockPos(-1, 0, 0), Blocks.STONE);
+        put(new BlockPos(0, 0, 1), Blocks.STONE);
+        put(new BlockPos(0, 0, -1), Blocks.STONE);
+    }};
+
+    public Map<BlockPos, Block> getShape() {
+        return shape;
     }
 
     @Override

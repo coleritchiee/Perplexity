@@ -20,6 +20,8 @@ X Spell Codec + Attachable Data Components
 
 X Add math for calculating mana costs
 
+Finish Spell Structure/Spell Invalidation
+
 Origin Skills(come up with list and implement)
 
 Artifacts

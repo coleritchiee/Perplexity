@@ -20,6 +20,10 @@ public abstract class AbstractRitual {
         this.blocks = Arrays.stream(shape).toList();
     }
 
+    public AbstractRitual(String name){
+        this.name = name;
+    }
+
     public boolean matches(Level world, BlockPos activationPoint){
         for (BlockPos offset : blocks) {
             if (!world.getBlockState(activationPoint.offset(offset)).getBlock().equals(Registration.EXAMPLE_BLOCK.get())) {

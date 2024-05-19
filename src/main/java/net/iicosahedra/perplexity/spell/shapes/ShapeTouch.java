@@ -6,14 +6,17 @@ import net.iicosahedra.perplexity.spell.SpellContext;
 import net.iicosahedra.perplexity.spell.components.AbstractShape;
 import net.iicosahedra.perplexity.spell.targeting.CastResult;
 import net.iicosahedra.perplexity.util.ResourceLoc;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.HitResult;
 
 import javax.annotation.Nullable;
+import java.util.Map;
 
 public class ShapeTouch extends AbstractShape {
 
@@ -29,5 +32,10 @@ public class ShapeTouch extends AbstractShape {
             return CastResult.SUCCESS;
         }
         return CastResult.FAIL;
+    }
+
+    @Override
+    public Map<BlockPos, Block> getShape() {
+        return Map.of();
     }
 }

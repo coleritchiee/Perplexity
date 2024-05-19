@@ -5,6 +5,7 @@ import cpw.mods.modlauncher.api.ITransformationService;
 import net.iicosahedra.perplexity.Perplexity;
 import net.iicosahedra.perplexity.common.block.SpellStructureHead;
 import net.iicosahedra.perplexity.common.block.SpellStructureHeadEntity;
+import net.iicosahedra.perplexity.common.block.SpellStructureTail;
 import net.iicosahedra.perplexity.common.block.TestBlock;
 import net.iicosahedra.perplexity.common.item.TestItem;
 import net.iicosahedra.perplexity.common.item.TestSetItem;
@@ -105,6 +106,9 @@ public class Registration {
     public static final DeferredBlock<SpellStructureHead> SPELL_STRUCTURE_HEAD = BLOCKS.register("spell_structure_head", SpellStructureHead::new);
     public static final DeferredItem<BlockItem> SPELL_STRUCTURE_HEAD_ITEM = ITEMS.registerSimpleBlockItem("spell_structure_head", SPELL_STRUCTURE_HEAD);
 
+    public static final DeferredBlock<SpellStructureTail> SPELL_STRUCTURE_TAIL = BLOCKS.register("spell_structure_tail", SpellStructureTail::new);
+    public static final DeferredItem<BlockItem> SPELL_STRUCTURE_TAIL_ITEM = ITEMS.registerSimpleBlockItem("spell_structure_tail", SPELL_STRUCTURE_TAIL);
+
     //BlockEntities
     public static final Supplier<BlockEntityType<SpellStructureHeadEntity>> SPELL_STRUCTURE_HEAD_ENTITY = BLOCK_ENTITIES.register("spell_structure_head_entity", () ->
             BlockEntityType.Builder.of(SpellStructureHeadEntity::new, SPELL_STRUCTURE_HEAD.get()).build(null));
@@ -138,5 +142,4 @@ public class Registration {
     //Data Components
    public static DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SPELL = DATA_COMPONENTS.register("spell_key", ()->
        DataComponentType.<Integer>builder().persistent(Codec.INT).networkSynchronized(ByteBufCodecs.fromCodec(Codec.INT)).build());
-
 }

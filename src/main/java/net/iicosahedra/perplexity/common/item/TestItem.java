@@ -23,8 +23,6 @@ public class TestItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        BlockPos headPos = new BlockPos(3,16,438);
-        pPlayer.getMainHandItem().set(Registration.SPELL, SpellMapSavedDataManager.hashBlockPos(headPos));
         Integer key = pPlayer.getMainHandItem().get(Registration.SPELL);
         SpellCasting.castSpell(pLevel, pPlayer, pUsedHand, SpellMapSavedDataManager.INSTANCE.getSpell(key));
         return super.use(pLevel,pPlayer,pUsedHand);

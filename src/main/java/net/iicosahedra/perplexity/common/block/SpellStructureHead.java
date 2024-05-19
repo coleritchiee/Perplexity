@@ -1,5 +1,7 @@
 package net.iicosahedra.perplexity.common.block;
 
+import net.iicosahedra.perplexity.ritual.RitualContext;
+import net.iicosahedra.perplexity.ritual.rituals.SpellRitual;
 import net.iicosahedra.perplexity.setup.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -22,10 +24,18 @@ public class SpellStructureHead extends Block implements EntityBlock {
         super(BlockBehaviour.Properties.of());
     }
 
+    @Override
+    protected InteractionResult useWithoutItem(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, BlockHitResult p_60508_) {
+        SpellRitual.INSTANCE.activate(p_60504_, new RitualContext(p_60506_, p_60505_));
+        return super.useWithoutItem(p_60503_, p_60504_, p_60505_, p_60506_, p_60508_);
+    }
+
+
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return Registration.SPELL_STRUCTURE_HEAD_ENTITY.get().create(pPos, pState);
+        return null;
+        //Registration.SPELL_STRUCTURE_HEAD_ENTITY.get().create(pPos, pState);
     }
 
     @Nullable

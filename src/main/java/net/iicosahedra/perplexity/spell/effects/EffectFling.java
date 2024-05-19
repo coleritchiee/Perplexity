@@ -6,12 +6,16 @@ import net.iicosahedra.perplexity.spell.SpellCasting;
 import net.iicosahedra.perplexity.spell.SpellContext;
 import net.iicosahedra.perplexity.spell.components.AbstractEffect;
 import net.iicosahedra.perplexity.util.ResourceLoc;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Map;
 
 public class EffectFling extends AbstractEffect {
     public EffectFling() {
@@ -25,5 +29,10 @@ public class EffectFling extends AbstractEffect {
         if(target instanceof LivingEntity){
             target.setDeltaMovement(1.5*look.x(), 1.5*look.y(), 1.5*look.z());
         }
+    }
+
+    @Override
+    public Map<BlockPos, Block> getShape() {
+        return Map.of();
     }
 }
