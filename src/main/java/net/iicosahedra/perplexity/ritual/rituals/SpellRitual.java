@@ -1,5 +1,8 @@
 package net.iicosahedra.perplexity.ritual.rituals;
 
+import net.iicosahedra.perplexity.common.block.ActiveCircuitEntity;
+import net.iicosahedra.perplexity.common.block.InactiveCircuit;
+import net.iicosahedra.perplexity.common.block.SpellStructureTailEntity;
 import net.iicosahedra.perplexity.ritual.AbstractRitual;
 import net.iicosahedra.perplexity.ritual.RitualContext;
 import net.iicosahedra.perplexity.setup.Registration;
@@ -14,6 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +42,9 @@ public class SpellRitual extends AbstractRitual {
             return;
         }
         SpellMapSavedDataManager.INSTANCE.addSpell(SpellMapSavedDataManager.hashBlockPos(context.activationPoint), spell);
+
+        transformCircuits(world, context.activationPoint, spell);
+
         if (!world.isClientSide) {
             ItemStack stack = new ItemStack(Registration.TEST_ITEM.asItem());
             stack.set(Registration.SPELL, SpellMapSavedDataManager.hashBlockPos(context.activationPoint));
@@ -45,6 +53,40 @@ public class SpellRitual extends AbstractRitual {
             world.addFreshEntity(entity);
         }
 
+    }
+
+    private void transformCircuits(Level world, BlockPos activationPoint, Spell spell) {
+        for (int i = 1; i < 16; i++) {
+            BlockPos levelPos = activationPoint.below(i);
+            Map<BlockPos, Block> shapeAtLevel = getShapeAtLevel(world, levelPos);
+
+            ISpellComponent component = getComponentFromShape(shapeAtLevel);
+            if (component != null) {
+                for (BlockPos offset : component.getShape().keySet()) {
+                    BlockPos pos = levelPos.offset(offset);
+                    BlockState state = world.getBlockState(pos);
+                    if (state.getBlock() instanceof InactiveCircuit) {
+                        InactiveCircuit inactiveCircuit = (InactiveCircuit) state.getBlock();
+                        Block activeBlock = inactiveCircuit.getActiveCircuit();
+                        world.setBlock(pos, activeBlock.defaultBlockState(), 3);
+                        BlockEntity blockEntity = world.getBlockEntity(pos);
+                        if (blockEntity instanceof ActiveCircuitEntity) {
+                            ((ActiveCircuitEntity) blockEntity).setHeadPos(activationPoint);
+                        }
+                    }
+                }
+            } else {
+                break;
+            }
+            BlockState tailState = world.getBlockState(levelPos);
+            if (tailState.getBlock() == Registration.SPELL_STRUCTURE_TAIL.get()) {
+                BlockEntity tailEntity = world.getBlockEntity(levelPos);
+                if (tailEntity instanceof SpellStructureTailEntity) {
+                    ((SpellStructureTailEntity) tailEntity).setHeadPos(activationPoint);
+                }
+                break;
+            }
+        }
     }
 
     public Spell createSpellFromShapeStack(Level world, RitualContext context) {

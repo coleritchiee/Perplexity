@@ -34,8 +34,7 @@ public class SpellStructureHead extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return null;
-        //Registration.SPELL_STRUCTURE_HEAD_ENTITY.get().create(pPos, pState);
+        return Registration.SPELL_STRUCTURE_HEAD_ENTITY.get().create(pPos, pState);
     }
 
     @Nullable

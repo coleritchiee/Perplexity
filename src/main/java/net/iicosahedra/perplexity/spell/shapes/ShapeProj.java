@@ -24,15 +24,15 @@ public class ShapeProj extends AbstractShape {
         super(ResourceLoc.create("shape.proj"),"proj",0,0);
     }
     public final Map<BlockPos, Block> shape = new HashMap<>() {{
-        put(new BlockPos(1, 0, 0), Blocks.STONE);
-        put(new BlockPos(0, 0, 0), Blocks.STONE);
-        put(new BlockPos(-1, 0, 0), Blocks.STONE);
-        put(new BlockPos(0, 0, 1), Blocks.STONE);
-        put(new BlockPos(0, 0, -1), Blocks.STONE);
-        put(new BlockPos(1, 0, -1), Blocks.STONE);
-        put(new BlockPos(-1, 0, -1), Blocks.STONE);
-        put(new BlockPos(1, 0, 1), Blocks.STONE);
-        put(new BlockPos(-1, 0, 1), Blocks.STONE);
+        put(new BlockPos(1, 0, 0), Registration.INACTIVE_CIRCUIT.get());
+        put(new BlockPos(0, 0, 0), Registration.INACTIVE_CIRCUIT.get());
+        put(new BlockPos(-1, 0, 0), Registration.INACTIVE_CIRCUIT.get());
+        put(new BlockPos(0, 0, 1), Registration.INACTIVE_CIRCUIT.get());
+        put(new BlockPos(0, 0, -1), Registration.INACTIVE_CIRCUIT.get());
+        put(new BlockPos(1, 0, -1), Registration.INACTIVE_CIRCUIT.get());
+        put(new BlockPos(-1, 0, -1), Registration.INACTIVE_CIRCUIT.get());
+        put(new BlockPos(1, 0, 1), Registration.INACTIVE_CIRCUIT.get());
+        put(new BlockPos(-1, 0, 1), Registration.INACTIVE_CIRCUIT.get());
     }};
     @Override
     public CastResult onCast(@Nullable ItemStack stack, LivingEntity playerEntity, Level world, SpellContext context, SpellCasting casting) {

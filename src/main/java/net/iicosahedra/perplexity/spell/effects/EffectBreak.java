@@ -20,12 +20,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.bus.EventBus;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.NeoForgeEventHandler;
 import net.neoforged.neoforge.common.UsernameCache;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
+import net.neoforged.neoforge.event.level.BlockEvent;
 
+import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,11 +39,11 @@ public class EffectBreak extends AbstractEffect {
         super(ResourceLoc.create("effect.break"), "break", 0, 0, Affinities.EARTH);
     }
     public final Map<BlockPos, Block> shape = new HashMap<>() {{
-        put(new BlockPos(1, 0, 0), Blocks.STONE);
-        put(new BlockPos(0, 0, 0), Blocks.STONE);
-        put(new BlockPos(-1, 0, 0), Blocks.STONE);
-        put(new BlockPos(0, 0, 1), Blocks.STONE);
-        put(new BlockPos(0, 0, -1), Blocks.STONE);
+        put(new BlockPos(1, 0, 0), Registration.INACTIVE_CIRCUIT.get());
+        put(new BlockPos(0, 0, 0), Registration.INACTIVE_CIRCUIT.get());
+        put(new BlockPos(-1, 0, 0), Registration.INACTIVE_CIRCUIT.get());
+        put(new BlockPos(0, 0, 1), Registration.INACTIVE_CIRCUIT.get());
+        put(new BlockPos(0, 0, -1), Registration.INACTIVE_CIRCUIT.get());
     }};
 
     public Map<BlockPos, Block> getShape() {
@@ -49,9 +54,10 @@ public class EffectBreak extends AbstractEffect {
     public void onCastOnBlock(BlockHitResult blockHitResult, Level world, LivingEntity caster, SpellContext spellContext, SpellCasting casting) {
         ItemStack stack = Items.NETHERITE_PICKAXE.getDefaultInstance();
         if(caster instanceof Player){
-            Block block =   caster.level().getBlockState(blockHitResult.getBlockPos()).getBlock();
+            Block block = caster.level().getBlockState(blockHitResult.getBlockPos()).getBlock();
             BlockState state = world.getBlockState(blockHitResult.getBlockPos());
             if(world.getBlockState(blockHitResult.getBlockPos()).getDestroySpeed(world, blockHitResult.getBlockPos())>=0) {
+                NeoForge.EVENT_BUS.post(new BlockEvent.BreakEvent(world,  blockHitResult.getBlockPos(), state, (Player) caster));
                 stack.mineBlock(world, state, blockHitResult.getBlockPos(),(Player) caster);
                 boolean removed = state.onDestroyedByPlayer(world, blockHitResult.getBlockPos(), (Player) caster, state.canHarvestBlock(world, blockHitResult.getBlockPos(), (Player) caster), world.getFluidState(blockHitResult.getBlockPos()));
                 if (removed) {

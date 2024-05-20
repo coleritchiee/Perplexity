@@ -148,4 +148,12 @@ public class Spell {
         return new Spell(name, components.toArray(new ISpellComponent[0]));
     }));
 
+    public List<ISpellComponent> getComponents(){
+        List<ISpellComponent> components = new ArrayList<>();
+        components.addAll(effects);
+        components.addAll(shapes);
+        components.addAll(modifiers);
+        return components;
+    }
+
 }

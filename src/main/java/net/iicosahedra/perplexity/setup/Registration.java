@@ -1,12 +1,10 @@
 package net.iicosahedra.perplexity.setup;
 
+import com.mojang.datafixers.types.Type;
 import com.mojang.serialization.Codec;
 import cpw.mods.modlauncher.api.ITransformationService;
 import net.iicosahedra.perplexity.Perplexity;
-import net.iicosahedra.perplexity.common.block.SpellStructureHead;
-import net.iicosahedra.perplexity.common.block.SpellStructureHeadEntity;
-import net.iicosahedra.perplexity.common.block.SpellStructureTail;
-import net.iicosahedra.perplexity.common.block.TestBlock;
+import net.iicosahedra.perplexity.common.block.*;
 import net.iicosahedra.perplexity.common.item.TestItem;
 import net.iicosahedra.perplexity.common.item.TestSetItem;
 import net.iicosahedra.perplexity.spell.Spell;
@@ -82,6 +80,7 @@ public class Registration {
         ENTITY_TYPES.register(modEventBus);
         SPELLS.register(modEventBus);
         DATA_COMPONENTS.register(modEventBus);
+        BLOCK_ENTITIES.register(modEventBus);
     }
     public static void addCreative(BuildCreativeModeTabContentsEvent event) {
         //if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) event.accept(EXAMPLE_BLOCK_ITEM);
@@ -109,9 +108,21 @@ public class Registration {
     public static final DeferredBlock<SpellStructureTail> SPELL_STRUCTURE_TAIL = BLOCKS.register("spell_structure_tail", SpellStructureTail::new);
     public static final DeferredItem<BlockItem> SPELL_STRUCTURE_TAIL_ITEM = ITEMS.registerSimpleBlockItem("spell_structure_tail", SPELL_STRUCTURE_TAIL);
 
+    public static final DeferredBlock<InactiveCircuit> INACTIVE_CIRCUIT = BLOCKS.register("inactive_circuit", InactiveCircuit::new);
+    public static final DeferredItem<BlockItem> INACTIVE_CIRCUIT_ITEM = ITEMS.registerSimpleBlockItem("inactive_circuit", INACTIVE_CIRCUIT);
+
+    public static final DeferredBlock<ActiveCircuit> ACTIVE_CIRCUIT = BLOCKS.register("active_circuit", ActiveCircuit::new);
+    public static final DeferredItem<BlockItem> ACTIVE_CIRCUIT_ITEM = ITEMS.registerSimpleBlockItem("active_circuit", ACTIVE_CIRCUIT);
+
     //BlockEntities
     public static final Supplier<BlockEntityType<SpellStructureHeadEntity>> SPELL_STRUCTURE_HEAD_ENTITY = BLOCK_ENTITIES.register("spell_structure_head_entity", () ->
-            BlockEntityType.Builder.of(SpellStructureHeadEntity::new, SPELL_STRUCTURE_HEAD.get()).build(null));
+            BlockEntityType.Builder.of(SpellStructureHeadEntity::new, SPELL_STRUCTURE_HEAD.get()).build( null));
+
+    public static final Supplier<BlockEntityType<ActiveCircuitEntity>> ACTIVE_CIRCUIT_ENTITY = BLOCK_ENTITIES.register("active_circuit_entity", ()->
+            BlockEntityType.Builder.of(ActiveCircuitEntity::new, ACTIVE_CIRCUIT.get()).build(null));
+
+    public static final Supplier<BlockEntityType<SpellStructureTailEntity>> SPELL_STRUCTURE_TAIL_ENTITY = BLOCK_ENTITIES.register("spell_structure_tail_entity", ()->
+            BlockEntityType.Builder.of(SpellStructureTailEntity::new, SPELL_STRUCTURE_TAIL.get()).build(null));
 
     //Stats
 
