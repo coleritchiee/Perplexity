@@ -24,7 +24,7 @@ public class TestItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         Integer key = pPlayer.getMainHandItem().get(Registration.SPELL);
-        SpellCasting.castSpell(pLevel, pPlayer, pUsedHand, SpellMapSavedDataManager.INSTANCE.getSpell(key));
+        SpellCasting.castSpell(pLevel, pPlayer, pUsedHand, SpellMapSavedDataManager.INSTANCE.getSpell(key), key);
         return super.use(pLevel,pPlayer,pUsedHand);
     }
 }

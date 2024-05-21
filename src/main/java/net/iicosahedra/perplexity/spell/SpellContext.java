@@ -10,15 +10,21 @@ public class SpellContext {
     private ItemStack castingItem = ItemStack.EMPTY;
     private LivingEntity caster;
     private Level level;
+    private int spellKey;
 
-    public SpellContext(@NotNull Spell spell, LivingEntity caster, Level level) {
+    public SpellContext(@NotNull Spell spell, LivingEntity caster, Level level, int spellKey) {
         this.level = level;
         this.castingItem = castingItem;
         this.spell = spell;
         this.caster = caster;
+        this.spellKey = spellKey;
     }
 
     public LivingEntity getCaster() {
         return caster;
+    }
+
+    public Spell getSpell() {
+        return spell;
     }
 }

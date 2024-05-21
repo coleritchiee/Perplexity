@@ -4,37 +4,50 @@ import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.spell.components.AbstractEffect;
 import net.iicosahedra.perplexity.spell.components.AbstractModifier;
 import net.iicosahedra.perplexity.spell.components.AbstractShape;
+import net.iicosahedra.perplexity.spell.event.SpellCastEvent;
 import net.iicosahedra.perplexity.spell.targeting.CastResult;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
+import net.neoforged.bus.api.Event;
+import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SpellCasting {
-    public static InteractionResultHolder<ItemStack> castSpell(Level world, LivingEntity entity, InteractionHand hand, Spell spell){
+    public static CastResult castSpell(Level world, LivingEntity entity, InteractionHand hand, Spell spell, int spellKey){
         ItemStack stack = entity.getItemInHand(hand);
         if(spell == null){
             if(world.isClientSide) {
                 entity.sendSystemMessage(Component.translatable("Spell not valid"));
             }
-            return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
+            return CastResult.FAIL;
         }
-        SpellCasting casting = new SpellCasting(spell, new SpellContext(spell, entity, world));
+        SpellContext context = new SpellContext(spell, entity, world, spellKey);
+        SpellCastEvent event = new SpellCastEvent(context);
+        NeoForge.EVENT_BUS.post(event);
+
+        if(world.isClientSide && event.isCanceled()){
+            entity.sendSystemMessage(Component.translatable("Spell was interrupted"));
+            return CastResult.FAIL;
+        }
+
+        SpellCasting casting = new SpellCasting(spell, context);
         if (world.isClientSide && !spell.isEmpty()) {
-            return InteractionResultHolder.pass(entity.getItemInHand(hand));
+            return CastResult.FAIL;
         }
         if(casting.onCast(stack, world)){
-            return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+            return CastResult.SUCCESS;
         }
-        return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
+        return CastResult.FAIL;
     }
 
     public static double processDamageScaling(double baseDamage, SpellContext context){
