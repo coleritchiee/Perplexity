@@ -22,7 +22,7 @@ public class Spell {
 
     private List<Integer> affinities = new ArrayList<>();
 
-    private int delay = 20;
+    private int delay = 2;
 
     private int shapeCost;
     private int effectCost;

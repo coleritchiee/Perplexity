@@ -16,6 +16,8 @@ import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class SpellCasting {
     public static CastResult castSpell(Level world, LivingEntity entity, InteractionHand hand, Spell spell, int spellKey){
@@ -35,12 +37,15 @@ public class SpellCasting {
         if(event.isCanceled()){
             return CastResult.FAIL;
         }
+        if (!world.isClientSide) {
+            SpellCastEntity castEntity = new SpellCastEntity(world, context.getCaster(), event, casting, stack);
+            castEntity.setPos(entity.getX(), entity.getY() + entity.getEyeHeight() + 1.5, entity.getZ());
+            world.addFreshEntity(castEntity);
+            return CastResult.SUCCESS;
+        }
 
         if (world.isClientSide && !spell.isEmpty()) {
             return CastResult.FAIL;
-        }
-        if(!world.isClientSide() && casting.onCast(stack, world)){
-            return CastResult.SUCCESS;
         }
         return CastResult.FAIL;
     }
