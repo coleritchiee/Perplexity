@@ -1,13 +1,10 @@
 package net.iicosahedra.perplexity.setup;
 
-import com.mojang.datafixers.types.Type;
 import com.mojang.serialization.Codec;
-import cpw.mods.modlauncher.api.ITransformationService;
 import net.iicosahedra.perplexity.Perplexity;
 import net.iicosahedra.perplexity.common.block.*;
 import net.iicosahedra.perplexity.common.item.TestItem;
 import net.iicosahedra.perplexity.common.item.TestSetItem;
-import net.iicosahedra.perplexity.spell.Spell;
 import net.iicosahedra.perplexity.spell.components.ISpellComponent;
 import net.iicosahedra.perplexity.spell.effects.EffectBreak;
 import net.iicosahedra.perplexity.spell.effects.EffectDamage;
@@ -23,28 +20,18 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 import net.neoforged.neoforge.registries.*;
 
-import javax.swing.*;
-import java.rmi.registry.RegistryHandler;
 import java.util.function.Supplier;
 
 
@@ -59,18 +46,6 @@ public class Registration {
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, Perplexity.MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Perplexity.MODID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Perplexity.MODID);
-
-    public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", TestBlock::new);
-    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
-    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
-            .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("perplexity_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.perplexity")) //The language key for the title of your CreativeModeTab
-            .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
-            .displayItems((parameters, output) -> {
-                output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
-            }).build());
 
     public static void init(IEventBus modEventBus){
         BLOCKS.register(modEventBus);
@@ -93,6 +68,7 @@ public class Registration {
     public static final DeferredItem<Item> TEST_SET_ITEM = ITEMS.register("test_set_item", () ->
             new TestSetItem(new Item.Properties()));
 
+    //Entities
     public static final DeferredHolder<EntityType<?>, EntityType<EntityProj>> SPELL_PROJ = ENTITY_TYPES.register("spell_proj", ()->
             EntityType.Builder.<EntityProj>of(EntityProj::new, MobCategory.MISC)
                     .sized(0.5f, 0.5f).noSave()
@@ -100,6 +76,7 @@ public class Registration {
                     .setShouldReceiveVelocityUpdates(true)
                     .setUpdateInterval(120)
                     .build(ResourceLoc.create("spell_proj").toString()));
+
 
     //Blocks
     public static final DeferredBlock<SpellStructureHead> SPELL_STRUCTURE_HEAD = BLOCKS.register("spell_structure_head", SpellStructureHead::new);
@@ -153,4 +130,12 @@ public class Registration {
     //Data Components
    public static DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SPELL = DATA_COMPONENTS.register("spell_key", ()->
        DataComponentType.<Integer>builder().persistent(Codec.INT).networkSynchronized(ByteBufCodecs.fromCodec(Codec.INT)).build());
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("perplexity_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.perplexity")) //The language key for the title of your CreativeModeTab
+            .withTabsBefore(CreativeModeTabs.COMBAT)
+            .icon(() -> TEST_ITEM.get().getDefaultInstance())
+            .displayItems((parameters, output) -> {
+                output.accept(TEST_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+            }).build());
 }

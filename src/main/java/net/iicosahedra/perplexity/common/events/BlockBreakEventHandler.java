@@ -33,6 +33,7 @@ public class BlockBreakEventHandler {
             int spellKey = SpellMapSavedDataManager.hashBlockPos(pos);
             SpellMapSavedDataManager.INSTANCE.removeSpell(spellKey);
         } else if (state.getBlock() == Registration.SPELL_STRUCTURE_TAIL.get()) {
+            //TODO: Figure out why it doesnt work
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof SpellStructureTailEntity) {
                 BlockPos headPos = ((SpellStructureTailEntity) blockEntity).getHeadPos();

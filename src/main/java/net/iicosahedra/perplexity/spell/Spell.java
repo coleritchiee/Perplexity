@@ -22,6 +22,8 @@ public class Spell {
 
     private List<Integer> affinities = new ArrayList<>();
 
+    private int delay = 20;
+
     private int shapeCost;
     private int effectCost;
     private int modifierCost;
@@ -156,4 +158,7 @@ public class Spell {
         return components;
     }
 
+    public int getDelay() {
+        return delay;
+    }
 }

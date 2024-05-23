@@ -8,11 +8,11 @@ X Add Affinities
 
 Stats math
 
-Event Communication
+X Event Communication
 
 Rituals
 
-Spell Cooldowns
+X Spell Cooldowns/Burnout
 
 Make more spell components and integrate modifiers
 

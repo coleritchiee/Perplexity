@@ -1,7 +1,9 @@
 package net.iicosahedra.perplexity.spell;
 
+import com.mojang.serialization.DataResult;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
 
@@ -51,8 +53,16 @@ public class BurnoutSavedData extends SavedData {
     }
 
     public static BurnoutSavedData load(CompoundTag tag, HolderLookup.Provider provider) {
-        //TODO
         BurnoutSavedData data = new BurnoutSavedData();
+
+        CompoundTag manaTag = tag.getCompound("ManaSpent");
+        data.manaSpent.clear();
+        manaTag.getAllKeys().forEach(key -> data.manaSpent.put(UUID.fromString(key), manaTag.getInt(key)));
+
+        CompoundTag burnoutTag = tag.getCompound("BurnoutTimeRemaining");
+        data.burnoutTimeRemaining.clear();
+        burnoutTag.getAllKeys().forEach(key -> data.burnoutTimeRemaining.put(UUID.fromString(key), burnoutTag.getInt(key)));
+
         return data;
     }
 

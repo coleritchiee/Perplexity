@@ -26,7 +26,7 @@ public abstract class AbstractRitual {
 
     public boolean matches(Level world, BlockPos activationPoint){
         for (BlockPos offset : blocks) {
-            if (!world.getBlockState(activationPoint.offset(offset)).getBlock().equals(Registration.EXAMPLE_BLOCK.get())) {
+            if (!world.getBlockState(activationPoint.offset(offset)).getBlock().equals(Registration.INACTIVE_CIRCUIT.get())) {
                 return false;
             }
         }
