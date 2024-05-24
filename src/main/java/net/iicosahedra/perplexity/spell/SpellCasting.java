@@ -37,10 +37,8 @@ public class SpellCasting {
         if(event.isCanceled()){
             return CastResult.FAIL;
         }
-        if (!world.isClientSide) {
-            SpellCastEntity castEntity = new SpellCastEntity(world, context.getCaster(), event, casting, stack);
-            castEntity.setPos(entity.getX(), entity.getY() + entity.getEyeHeight() + 1.5, entity.getZ());
-            world.addFreshEntity(castEntity);
+        if (!world.isClientSide && !event.isCanceled()) {
+            casting.onCast(stack, world);
             return CastResult.SUCCESS;
         }
 

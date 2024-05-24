@@ -5,7 +5,6 @@ import net.iicosahedra.perplexity.Perplexity;
 import net.iicosahedra.perplexity.common.block.*;
 import net.iicosahedra.perplexity.common.item.TestItem;
 import net.iicosahedra.perplexity.common.item.TestSetItem;
-import net.iicosahedra.perplexity.spell.SpellCastEntity;
 import net.iicosahedra.perplexity.spell.components.ISpellComponent;
 import net.iicosahedra.perplexity.spell.effects.EffectBreak;
 import net.iicosahedra.perplexity.spell.effects.EffectDamage;
@@ -77,12 +76,6 @@ public class Registration {
                     .setShouldReceiveVelocityUpdates(true)
                     .setUpdateInterval(120)
                     .build(ResourceLoc.create("spell_proj").toString()));
-
-    public static final DeferredHolder<EntityType<?>, EntityType<SpellCastEntity>> SPELL_CAST_ENTITY = ENTITY_TYPES.register("spell_cast_entity", ()->
-            EntityType.Builder.<SpellCastEntity>of(SpellCastEntity::new, MobCategory.MISC)
-                    .sized(0.5f, 0.5f).noSave()
-                    .setTrackingRange(32).fireImmune()
-                    .build(ResourceLoc.create("spell_cast_entity").toString()));
 
 
     //Blocks
