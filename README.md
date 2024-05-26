@@ -6,6 +6,10 @@ Mana Gen
 
 Chunk Mana
 
+JEI/Curio
+
+Steal League items for artifacts
+
 
 X Redo mana system with new network handling
 
@@ -32,7 +36,5 @@ X Add math for calculating mana costs
 X Finish Spell Structure/Spell Invalidation
 
 Origin Skills(come up with list and implement)
-
-Artifacts
 
 Ego weapons (Last Prio)
