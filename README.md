@@ -10,7 +10,7 @@ Stats math
 
 X Event Communication
 
-Rituals
+X Rituals
 
 X Spell Cooldowns/Burnout
 
