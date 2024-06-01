@@ -36,5 +36,3 @@ X Add math for calculating mana costs
 X Finish Spell Structure/Spell Invalidation
 
 Origin Skills(come up with list and implement)
-
-Ego weapons (Last Prio)
