@@ -9,10 +9,10 @@ version = mod_version
 group = mod_group_id
 
 repositories {
-    mavenLocal()
     maven{
-        url = "https://maven.theillusivec4.top"
+        url = "https://maven.theillusivec4.top/"
     }
+    mavenLocal()
 }
 
 base {
@@ -36,8 +36,6 @@ runs {
         property 'mixin.env.remapRefMap', 'true'
         property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
         */
-        property 'mixin.env.remapRefMap', 'true'
-        property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
     }
 
     server {
