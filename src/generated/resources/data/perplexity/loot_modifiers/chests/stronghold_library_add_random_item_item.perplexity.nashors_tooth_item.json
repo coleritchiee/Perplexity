@@ -1,0 +1,11 @@
+{
+  "type": "perplexity:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/stronghold_library"
+    }
+  ],
+  "item": "perplexity:nashors_tooth_item",
+  "prob": 0.0058
+}

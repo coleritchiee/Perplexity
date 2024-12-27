@@ -1,0 +1,11 @@
+{
+  "type": "perplexity:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/shipwreck_treasure"
+    }
+  ],
+  "item": "perplexity:immortal_shieldbow_item",
+  "prob": 5.8E-4
+}

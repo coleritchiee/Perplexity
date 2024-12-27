@@ -1,0 +1,11 @@
+{
+  "type": "perplexity:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/buried_treasure"
+    }
+  ],
+  "item": "perplexity:essence_reaver_item",
+  "prob": 5.8E-4
+}

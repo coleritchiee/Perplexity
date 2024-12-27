@@ -5,6 +5,6 @@ import net.minecraft.resources.ResourceLocation;
 
 public class ResourceLoc {
     public static ResourceLocation create(String path){
-        return new ResourceLocation(Perplexity.MODID, path);
+        return ResourceLocation.fromNamespaceAndPath(Perplexity.MODID, path);
     }
 }

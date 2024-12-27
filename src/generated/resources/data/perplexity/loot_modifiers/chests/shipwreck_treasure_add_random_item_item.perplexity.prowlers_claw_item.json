@@ -1,0 +1,11 @@
+{
+  "type": "perplexity:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/shipwreck_treasure"
+    }
+  ],
+  "item": "perplexity:prowlers_claw_item",
+  "prob": 5.8E-4
+}

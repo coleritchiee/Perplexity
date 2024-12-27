@@ -1,0 +1,11 @@
+{
+  "type": "perplexity:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:trial_chambers/reward/vault"
+    }
+  ],
+  "item": "perplexity:immortal_shieldbow_item",
+  "prob": 0.0058
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "perplexity:item/youmuus_ghostblade_item"
+  }
+}
