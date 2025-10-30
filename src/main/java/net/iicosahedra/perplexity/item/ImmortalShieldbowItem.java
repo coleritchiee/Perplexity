@@ -3,6 +3,7 @@ package net.iicosahedra.perplexity.item;
 import net.iicosahedra.perplexity.ability.ActiveAbility;
 import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.util.ResourceLoc;
+import net.iicosahedra.perplexity.util.ItemData;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
@@ -24,16 +25,15 @@ public class ImmortalShieldbowItem extends RelicItem{
             Registration.CRIT_CHANCE, new AttributeModifier(ResourceLoc.create("attribute.perplexity.item.shieldbow.crit_chance"), 25, AttributeModifier.Operation.ADD_VALUE)
     );
     public ImmortalShieldbowItem() {
-        super(new Item.Properties().stacksTo(1), shieldbowModifiers, Registration.SHIELDBOW_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), shieldbowModifiers, null);
     }
 
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         super.curioTick(slotContext, stack);
         if(!slotContext.entity().level().isClientSide()) {
-            if (slotContext.entity().getData(Registration.SHIELDBOW_COOLDOWN.value()) > 0) {
-                slotContext.entity().setData(Registration.SHIELDBOW_COOLDOWN,
-                        slotContext.entity().getData(Registration.SHIELDBOW_COOLDOWN) - 1);
+            if (ItemData.getCooldown(stack) > 0) {
+                ItemData.setCooldown(stack, ItemData.getCooldown(stack) - 1);
             }
         }
     }

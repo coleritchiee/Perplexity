@@ -17,6 +17,6 @@ public class VoidStaffItem extends RelicItem{
     );
 
     public VoidStaffItem() {
-            super(new Item.Properties().stacksTo(1), voidModifiers, null, null);
+            super(new Item.Properties().stacksTo(1), voidModifiers, null);
         }
 }

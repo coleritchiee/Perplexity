@@ -26,7 +26,7 @@ public class ChempunkChainswordItem extends RelicItem{
 
 
     public ChempunkChainswordItem() {
-        super(new Item.Properties().stacksTo(1), chainswordModifiers, Registration.CHAINSWORD_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), chainswordModifiers, null);
     }
 
 

@@ -1,6 +1,9 @@
 package net.iicosahedra.perplexity.ability;
 
 import net.iicosahedra.perplexity.network.packet.ProcessFlightMovementPacket;
+import net.iicosahedra.perplexity.item.TwilightsEdgeItem;
+import net.iicosahedra.perplexity.util.CuriosUtil;
+import net.iicosahedra.perplexity.util.ItemData;
 import net.iicosahedra.perplexity.setup.Registration;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,7 +18,8 @@ public class TwilightsEdgeAbility extends ActiveAbility {
 
     @Override
     public void cast(Player player) {
-        if (player.getData(Registration.TWILIGHTS_COOLDOWN) == 0) {
+        var stackOpt = CuriosUtil.findFirstEquipped(player, TwilightsEdgeItem.class);
+        if (stackOpt.isPresent() && ItemData.getCooldown(stackOpt.get()) == 0) {
             Vec3 vec3 = player.getLookAngle().scale(1.5);
             if(player instanceof ServerPlayer p) {
                 PacketDistributor.sendToPlayer(p, new ProcessFlightMovementPacket(vec3));

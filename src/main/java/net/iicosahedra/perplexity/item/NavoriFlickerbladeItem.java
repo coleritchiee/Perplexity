@@ -26,7 +26,7 @@ public class NavoriFlickerbladeItem extends RelicItem{
 
 
     public NavoriFlickerbladeItem() {
-        super(new Item.Properties().stacksTo(1), navoriModifiers, Registration.NAVORI_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), navoriModifiers, null);
     }
 
     @Override

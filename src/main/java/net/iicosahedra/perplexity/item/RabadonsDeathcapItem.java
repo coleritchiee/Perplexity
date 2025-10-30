@@ -27,7 +27,7 @@ public class RabadonsDeathcapItem extends RelicItem{
 
 
     public RabadonsDeathcapItem() {
-        super(new Item.Properties().stacksTo(1), rabadonsModifiers, null, null);
+        super(new Item.Properties().stacksTo(1), rabadonsModifiers, null);
     }
 
     @Override

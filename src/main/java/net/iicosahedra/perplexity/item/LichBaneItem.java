@@ -27,7 +27,7 @@ public class LichBaneItem extends RelicItem {
 
 
     public LichBaneItem() {
-        super(new Item.Properties().stacksTo(1), lichModifiers, Registration.LICH_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), lichModifiers, null);
     }
 
 

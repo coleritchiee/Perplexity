@@ -26,7 +26,7 @@ public class NashorsToothItem extends RelicItem{
 
 
     public NashorsToothItem() {
-        super(new Item.Properties().stacksTo(1), nashorsModifiers, Registration.NASHORS_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), nashorsModifiers, null);
     }
 
     @Override

@@ -106,60 +106,46 @@ class ModLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         add(Registration.DEATHS_DANCE.value(), "Death's Dance");
-        add(Registration.DEATHS_DANCE_EFFECT.value(), "Ignore Pain");
         add("tooltip.perplexity.deathsdance", "§ePassive§f: Ignore Pain \nMitigates and stores §730% of all damage§f received for two instances of damage. On the third instance of damage, receive §750% of stored damage§f.");
 
         add(Registration.DIVINE_SUNDERER.value(), "Divine Sunderer");
-        add(Registration.DIVINE_SUNDERER_EFFECT.value(), "Divine Spellblade");
         add("tooltip.perplexity.divinesunderer","§ePassive§f: Divine Spellblade \nEvery 10 seconds your next attack will deal an additional §6160% AD§f + §24% of the targets max health§f. Additionally, heal for §664% AD§f + §21.6% of the targets max health§f.");
 
         add(Registration.NAVORI_FLICKERBLADE.value(), "Navori Flickerblade");
-        add(Registration.NAVORI_EFFECT.value(), "Transcendence");
         add("tooltip.perplexity.navori", "§ePassive§f: Transcendence \nAttacks reduce remaining cooldowns by 15%.");
 
         add(Registration.WARMOGS_ARMOR.value(), "Warmog's Armor");
-        add(Registration.WARMOGS_EFFECT.value(), "Warmog's Heart");
         add("tooltip.perplexity.warmogs", "§ePassive§f: Warmog's Heart \nIf you have at least §220 bonus health§f and have not taken damage in the last 6 seconds, regenerate §22.5% max health§f every second.");
 
         add(Registration.KRAKEN_SLAYER.value(), "Kraken Slayer");
-        add(Registration.KRAKEN_EFFECT.value(), "Bring It Down");
         add("tooltip.perplexity.kraken", "§ePassive§f: Bring It Down \nEvery third attack deals an additional §74§f damage increased up to §2100% based on missing target health§f.");
 
         add(Registration.INFINITY_EDGE.value(), "Infinity Edge");
 
         add(Registration.TRINITY_FORCE.value(), "Trinity Force");
-        add(Registration.TRINITY_EFFECT.value(), "Trinity Spellblade");
         add("tooltip.perplexity.triforce", "§ePassive§f: Trinity Spellblade \nEvery 10 seconds your next attack will deal an additional §6200% AD§f damage.");
 
         add(Registration.THE_COLLECTOR.value(), "The Collector");
-        add(Registration.COLLECTOR_EFFECT.value(), "Death");
         add("tooltip.perplexity.collector", "§ePassive§f: Death \nIf you deal post-mitigation damage that would leave a entity below §25% of their maximum health§f, execute them.");
 
         add(Registration.DUSKBLADE.value(), "Duskblade of Draktharr");
-        add(Registration.DUSKBLADE_EFFECT.value(), "Nightstalker");
         add("tooltip.perplexity.duskblade", "§ePassive§f: Nightstalker \nYou deal up to §222.5% increased damage based on target's missing health§f. Killing a player make you §4untargetable§f for 1.5 seconds.");
 
-        add(Registration.ENERGIZE.value(), "Energized");
         add("tooltip.perplexity.energize", "§ePassive§f: Energized \nSprinting generates Energize stacks up to 100.");
 
         add(Registration.STORMRAZOR.value(), "Stormrazor");
-        add(Registration.STORMRAZOR_EFFECT.value(), "Bolt");
         add("tooltip.perplexity.stormrazor", "§ePassive§f: Bolt \nWhen fully §eEnergized§f, your next attack deals §920 bonus magic damage§f and grants you §650% movement speed for 1.5 seconds§f.");
 
         add(Registration.RAPIDFIRECANNON.value(), "Rapid Firecannon");
-        add(Registration.RAPIDFIRECANNON_EFFECT.value(), "Sharpshooter");
         add("tooltip.perplexity.rfc", "§ePassive§f: Sharpshooter \nWhen fully §eEnergized§f, your next attack deals §94 bonus magic damage§f. §eEnergized§f attacks grant §7200% bonus range§f.");
 
         add(Registration.ECLIPSE.value(), "Eclipse");
-        add(Registration.ECLIPSE_EFFECT.value(), "Ever Rising Moon");
         add("tooltip.perplexity.eclipse","§ePassive§f: Ever Rising Moon \nEvery 6 seconds deal bonus damage equal to §26% of target's maximum health§f and gain §716§f + §640% AD§f absorption for 2 seconds.");
 
         add(Registration.IMMORTAL_SHIELDBOW.value(), "Immortal Shieldbow");
-        add(Registration.SHIELDBOW_EFFECT.value(), "Lifeline");
         add("tooltip.perplexity.shieldbow","§ePassive§f: Lifeline \nIf you would take damage that would reduce you below §230% of your maximum health§f, you gain §740§f absorption for 5 seconds (60 second cooldown).");
 
         add(Registration.ESSENCE_REAVER.value(), "Essence Reaver");
-        add(Registration.ESSENCE_REAVER_EFFECT.value(), "Essence Drain");
         add("tooltip.perplexity.essence_reaver","§ePassive§f: Essence Drain \nKilling an entity restores §bmana proportional to your current mana§f and §2the target's maximum health§f.");
 
         add(Registration.HEXTECH_GUNBLADE.value(), "Hextech Gunblade");
@@ -184,7 +170,6 @@ class ModLanguageProvider extends LanguageProvider {
         add("tooltip.perplexity.stridebreaker","§dActive§f: Halting Slash \nPerform a small dash, dealing §675% AD§f damage to all entities within a 4.5 block radius and §bslowing them by 40%§f for 2 seconds (20 second cooldown). \n§bMana Cost: 50§f");
 
         add(Registration.RANDUINS_OMEN.value(), "Randuin's Omen");
-        add(Registration.OMEN_EFFECT.value(), "Critical Resilience");
         add("tooltip.perplexity.omen.active","§dActive§f: Humility \nUnleash a shockwave around you that §bslows entities within 5 blocks by 70%§f for 2 seconds (90 second cooldown). \n§bMana Cost: 50§f");
         add("tooltip.perplexity.omen.passive","§ePassive§f: Critical Resilience \nReduce damage increase of critical strikes by 30%.");
 
@@ -192,7 +177,6 @@ class ModLanguageProvider extends LanguageProvider {
         add("tooltip.perplexity.gargoyle","§dActive§f: Unbreakable \nGain §2100% health§f absorption for 5 seconds (60 second cooldown). \n§bMana Cost: 50§f");
 
         add(Registration.NASHORS_TOOTH_ITEM.value(), "Nashor's Tooth");
-        add(Registration.NASHORS_EFFECT.value(), "Icathian Bite");
         add("tooltip.perplexity.nashors", "§ePassive§f: Icathian Bite \nYour attacks deal an additional §71.5§f + §915% AP§f magic damage.");
 
         add(Registration.RABADONS_DEATHCAP_ITEM.value(), "Rabadon's Deathcap");
@@ -200,42 +184,34 @@ class ModLanguageProvider extends LanguageProvider {
         add("tooltip,perplexity.raba_desc", "Increase your §9Ability Power§f by 30%.");
 
         add(Registration.RIFTMAKER_ITEM.value(), "Riftmaker");
-        add(Registration.RIFT_EFFECT.value(), "Void Corruption");
         add("tooltip.perplexity.riftmaker_corr", "§ePassive§f: Void Corruption \nFor each instance of damage dealt, deal 1% increased damage, stacking up to 8 times. At maximum stacks, gain §410% omnivamp§f.");
         add("tooltip.perplexity.riftmaker_infu", "§ePassive§f: Void Infusion \n Gain §9Ability Power§f equal to §22% maximum health§f.");
 
         add(Registration.SERAPHS_ITEM.value(), "Seraph's Embrace");
-        add(Registration.SERAPHS_EFFECT.value(), "Mana Lifeline");
         add("tooltip.perplexity.seraphs_awe", "§ePassive§f: Awe \nGrants §9Ability Power§f equal to §b2% mana§f.");
         add("tooltip.perplexity.seraphs_lifeline", "§ePassive§f: Mana Lifeline \nIf you were to take damage that would reduce you below §230% of your maximum health§f, you first gain absorption equal to §720§f + §b2% mana§f.");
 
 
         add(Registration.LICH_BANE_ITEM.value(), "Lich Bane");
-        add(Registration.LICH_EFFECT.value(), "Lich Spellblade");
         add("tooltip.perplexity.lich", "§ePassive§f: Lich Spellblade \nAfter using an active ability, gain §650% Attack Speed§f and deal an additional §675% AD§f + §940% AP§f magic damage.");
 
         add(Registration.GRIEVOUS_WOUNDS_EFFECT.value(), "Grievous Wounds");
 
         add(Registration.MORELLONOMICON_ITEM.value(), "Morellonomicon");
-        add(Registration.MORELLO_EFFECT.value(), "Grievous Wounds");
         add("tooltip.perplexity.morello", "§ePassive§f: Grievous Wounds \nDealing damage inflicts the target with Grievous Wounds for 3 seconds.");
 
         add(Registration.CHEMPUNK_CHAINSWORD_ITEM.value(), "Chempunk Chainsword");
-        add(Registration.CHAINSWORD_EFFECT.value(), "Hackshorn");
         add("tooltip.perplexity.chainsword", "§ePassive§f: Hackshorn \nDealing damage inflicts the target with Grievous Wounds for 3 seconds.");
 
         add(Registration.THORNMAIL_ITEM.value(), "Thornmail");
-        add(Registration.THORNMAIL_EFFECT.value(), "Thorns");
         add("tooltip.perplexity.thornmail", "§ePassive§f: Thorns \nReceiving damage inflicts the source with Grievous Wounds for 3 seconds.");
 
         add(Registration.VOID_STAFF_ITEM.value(), "Void Staff");
 
         add(Registration.PERPLEXITY_ITEM.value(), "Perplexity");
-        add(Registration.PERPLEXITY_EFFECT.value(), "Giant Slayer");
         add("tooltip.perplexity.perplexity", "§ePassive§f: Giant Slayer \nDeal increased damage to targets with greater §2maximum health§f than you.");
 
         add(Registration.TWILIGHTS_EDGE_ITEM.value(), "Twilight's Edge");
-        add(Registration.TWILIGHTS_EFFECT.value(), "The Path Between");
         add("tooltip.perplexity.twilights","§dActive§f: The Path Between \nIf you have not dealt damage in the last 6 seconds, preform a dash in the direction you are looking. This ability has no cooldown. \n§bMana Cost: 1§f");
 
         add(Registration.ABILITY_HASTE.value().getDescriptionId(),"Ability Haste");

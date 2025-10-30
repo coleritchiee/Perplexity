@@ -3,6 +3,7 @@ package net.iicosahedra.perplexity.item;
 import net.iicosahedra.perplexity.ability.ActiveAbility;
 import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.util.ResourceLoc;
+import net.iicosahedra.perplexity.util.ItemData;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
@@ -27,7 +28,7 @@ public class RapidFirecannonItem extends EnergizeItem{
     );
 
     public RapidFirecannonItem() {
-        super(new Item.Properties().stacksTo(1), rfcModifiers, Registration.RAPIDFIRECANNON_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), rfcModifiers, null);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class RapidFirecannonItem extends EnergizeItem{
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         super.curioTick(slotContext, stack);
-        if(slotContext.entity().getData(Registration.ENERGIZE_STACKS)==119){
+        if(ItemData.getStacks(stack)==119){
             slotContext.entity().getAttribute(Attributes.ENTITY_INTERACTION_RANGE)
                     .addTransientModifier(new AttributeModifier(ResourceLoc.create("attribute.perplexity.energize.eir"), 2, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
         }

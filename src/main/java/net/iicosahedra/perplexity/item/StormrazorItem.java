@@ -22,7 +22,7 @@ public class StormrazorItem extends EnergizeItem{
     );
 
     public StormrazorItem() {
-        super(new Item.Properties().stacksTo(1), stormrazorModifiers, Registration.STORMRAZOR_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), stormrazorModifiers, null);
     }
 
     @Override

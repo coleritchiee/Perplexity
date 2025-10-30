@@ -25,62 +25,29 @@ import java.util.Map;
 public class RelicItem extends Item implements ICurioItem {
 
     private final Multimap<Holder<Attribute>, AttributeModifier> attributeModifiers;
-    private final Holder<MobEffect> passive;
     private final Holder<ActiveAbility> active;
 
-    public RelicItem(Properties properties, Map<Holder<Attribute>, AttributeModifier> attributeModifiers, @Nullable Holder<MobEffect> passive, @Nullable Holder<ActiveAbility> active) {
+    public RelicItem(Properties properties, Map<Holder<Attribute>, AttributeModifier> attributeModifiers,  @Nullable Holder<ActiveAbility> active) {
         super(properties);
         this.attributeModifiers = ArrayListMultimap.create();
         attributeModifiers.forEach(this.attributeModifiers::put);
-        this.passive = passive;
         this.active = active;
+    }
+
+    public @Nullable Holder<ActiveAbility> getActiveAbilityHolder() {
+        return active;
     }
 
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         ICurioItem.super.curioTick(slotContext, stack);
-        if(passive!= null && !slotContext.entity().hasEffect(passive)){
-            slotContext.entity().addEffect(new MobEffectInstance(passive, -1,0,false, false));
-        }
     }
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
         if(!slotContext.entity().level().isClientSide()) {
-            if(passive != null) {
-                slotContext.entity().addEffect(new MobEffectInstance(passive, -1,0,false, false));
-            }
-            if(active == null){
-                int slot = slotContext.index();
-                if(slot == 0){
-                    slotContext.entity().setData(Registration.ABILITY_SLOT_1, Registration.NO_ABILITY.unwrapKey().get().location());
-                }
-                if(slot == 1){
-                    slotContext.entity().setData(Registration.ABILITY_SLOT_2, Registration.NO_ABILITY.unwrapKey().get().location());
-                }
-                if(slot == 2){
-                    slotContext.entity().setData(Registration.ABILITY_SLOT_3, Registration.NO_ABILITY.unwrapKey().get().location());
-                }
-                if(slot == 3){
-                    slotContext.entity().setData(Registration.ABILITY_SLOT_4, Registration.NO_ABILITY.unwrapKey().get().location());
-                }
-            }
-            else if(active != null){
-                int slot = slotContext.index();
-                if(slot == 0){
-                    slotContext.entity().setData(Registration.ABILITY_SLOT_1, active.unwrapKey().get().location());
-                }
-                if(slot == 1){
-                    slotContext.entity().setData(Registration.ABILITY_SLOT_2, active.unwrapKey().get().location());
-                }
-                if(slot == 2){
-                    slotContext.entity().setData(Registration.ABILITY_SLOT_3, active.unwrapKey().get().location());
-                }
-                if(slot == 3){
-                    slotContext.entity().setData(Registration.ABILITY_SLOT_4, active.unwrapKey().get().location());
-                }
-            }
+            // no-op for abilities; resolved dynamically from Curios at cast time
         }
     }
 
@@ -88,22 +55,7 @@ public class RelicItem extends Item implements ICurioItem {
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
         if(!slotContext.entity().level().isClientSide()) {
-            if(passive != null) {
-                slotContext.entity().removeEffect(passive);
-            }
-            int slot = slotContext.index();
-            if(slot == 0){
-                slotContext.entity().setData(Registration.ABILITY_SLOT_1, Registration.NO_ABILITY.unwrapKey().get().location());
-            }
-            if(slot == 1){
-                slotContext.entity().setData(Registration.ABILITY_SLOT_2, Registration.NO_ABILITY.unwrapKey().get().location());
-            }
-            if(slot == 2){
-                slotContext.entity().setData(Registration.ABILITY_SLOT_3, Registration.NO_ABILITY.unwrapKey().get().location());
-            }
-            if(slot == 3){
-                slotContext.entity().setData(Registration.ABILITY_SLOT_4, Registration.NO_ABILITY.unwrapKey().get().location());
-            }
+            // no-op; abilities resolved dynamically
         }
     }
 

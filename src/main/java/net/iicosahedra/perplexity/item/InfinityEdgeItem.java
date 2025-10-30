@@ -21,6 +21,6 @@ public class InfinityEdgeItem extends RelicItem{
     );
 
     public InfinityEdgeItem() {
-        super(new Item.Properties().stacksTo(1), ieModifiers, null, null);
+        super(new Item.Properties().stacksTo(1), ieModifiers, null);
     }
 }

@@ -23,7 +23,7 @@ public class MorellonomiconItem extends RelicItem{
 
 
     public MorellonomiconItem() {
-        super(new Item.Properties().stacksTo(1), morelloModifiers, Registration.MORELLO_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), morelloModifiers, null);
     }
 
 

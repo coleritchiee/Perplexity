@@ -23,7 +23,7 @@ public class DeathsDanceItem extends RelicItem{
             );
 
     public DeathsDanceItem() {
-        super(new Item.Properties().stacksTo(1), deathsDanceModifiers, Registration.DEATHS_DANCE_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), deathsDanceModifiers, null);
     }
 
     @Override

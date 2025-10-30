@@ -1,11 +1,15 @@
 package net.iicosahedra.perplexity.ability;
 
 import net.iicosahedra.perplexity.entity.RocketbeltProjectileEntity;
+import net.iicosahedra.perplexity.item.HextechRocketbeltItem;
+import net.iicosahedra.perplexity.util.CuriosUtil;
+import net.iicosahedra.perplexity.util.ItemData;
 import net.iicosahedra.perplexity.network.packet.ProcessDeltaMovementPacket;
 import net.iicosahedra.perplexity.setup.Registration;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.joml.Vector3f;
@@ -18,7 +22,8 @@ public class HextechRocketbeltAbility extends ActiveAbility{
 
     @Override
     public void cast(Player player) {
-        if (player.getData(Registration.ROCKETBELT_COOLDOWN) == 0) {
+        var stackOpt = CuriosUtil.findFirstEquipped(player, HextechRocketbeltItem.class);
+        if (stackOpt.isPresent() && ItemData.getCooldown(stackOpt.get()) == 0) {
             Vec3 vec3 = player.getLookAngle();
             if(player instanceof ServerPlayer p) {
                 PacketDistributor.sendToPlayer(p, new ProcessDeltaMovementPacket(vec3));
@@ -34,12 +39,13 @@ public class HextechRocketbeltAbility extends ActiveAbility{
                 proj.shoot(player, player.getXRot(), player.getYRot() + yawOffset, 0.0F, 1.0F, 0.8F);
                 player.level().addFreshEntity(proj);
             }
-            player.setData(Registration.ROCKETBELT_COOLDOWN.value(), (int)(800* CooldownCalc.cooldownReduction(player.getAttribute(Registration.ABILITY_HASTE).getValue())));
+            ItemData.setCooldown(stackOpt.get(), (int)(800* CooldownCalc.cooldownReduction(player.getAttribute(Registration.ABILITY_HASTE).getValue())));
         }
         else{
-            player.displayClientMessage(Component.literal("Hextech Rocketbelt is on cooldown for "+player.getData(Registration.ROCKETBELT_COOLDOWN)/20+" more seconds."), true);
+            player.displayClientMessage(Component.literal("Hextech Rocketbelt is on cooldown for "+(ItemData.getCooldown(stackOpt.orElse(ItemStack.EMPTY))/20)+" more seconds."), true);
             player.setData(Registration.MANA, player.getData(Registration.MANA)+manaCost);
-            player.setData(Registration.LICH_FLAG.value(), 0);
+            net.iicosahedra.perplexity.util.CuriosUtil.findFirstEquipped(player, net.iicosahedra.perplexity.item.LichBaneItem.class)
+                    .ifPresent(s -> net.iicosahedra.perplexity.util.ItemData.setFlag(s, 0));
         }
     }
 }

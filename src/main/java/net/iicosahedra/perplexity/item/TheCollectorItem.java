@@ -25,7 +25,7 @@ public class TheCollectorItem extends RelicItem{
     );
 
     public TheCollectorItem() {
-        super(new Item.Properties().stacksTo(1), collectorModifiers, Registration.COLLECTOR_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), collectorModifiers, null);
     }
 
     @Override

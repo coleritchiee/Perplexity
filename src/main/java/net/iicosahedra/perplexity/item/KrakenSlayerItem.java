@@ -26,7 +26,7 @@ public class KrakenSlayerItem extends RelicItem{
 
 
     public KrakenSlayerItem() {
-        super(new Item.Properties().stacksTo(1), krakenSlayerModifiers, Registration.KRAKEN_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), krakenSlayerModifiers, null);
     }
 
     @Override

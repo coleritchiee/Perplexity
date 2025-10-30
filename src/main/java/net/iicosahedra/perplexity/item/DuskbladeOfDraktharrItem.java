@@ -3,6 +3,7 @@ package net.iicosahedra.perplexity.item;
 import net.iicosahedra.perplexity.ability.ActiveAbility;
 import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.util.ResourceLoc;
+import net.iicosahedra.perplexity.util.ItemData;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
@@ -26,14 +27,14 @@ public class DuskbladeOfDraktharrItem extends RelicItem{
     );
 
     public DuskbladeOfDraktharrItem() {
-        super(new Item.Properties().stacksTo(1), duskbladeModifiers, Registration.DUSKBLADE_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), duskbladeModifiers, null);
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         super.onUnequip(slotContext, newStack, stack);
         if(!slotContext.entity().level().isClientSide()) {
-            slotContext.entity().setData(Registration.DUSKBLADE_IMMUNITY, 0);
+            ItemData.setFlag(stack, 0);
         }
     }
 
@@ -41,12 +42,11 @@ public class DuskbladeOfDraktharrItem extends RelicItem{
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         super.curioTick(slotContext, stack);
         if(!slotContext.entity().level().isClientSide()) {
-            if (slotContext.entity().getData(Registration.DUSKBLADE_COOLDOWN.value()) > 0) {
-                slotContext.entity().setData(Registration.DUSKBLADE_COOLDOWN,
-                        slotContext.entity().getData(Registration.DUSKBLADE_COOLDOWN.value()) - 1);
+            if (ItemData.getCooldown(stack) > 0) {
+                ItemData.setCooldown(stack, ItemData.getCooldown(stack) - 1);
             }
-            if (slotContext.entity().getData(Registration.DUSKBLADE_COOLDOWN.value()) == 0) {
-                slotContext.entity().setData(Registration.DUSKBLADE_IMMUNITY, 0);
+            if (ItemData.getCooldown(stack) == 0) {
+                ItemData.setFlag(stack, 0);
             }
         }
     }

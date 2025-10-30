@@ -25,7 +25,7 @@ public class EssenceReaverItem extends RelicItem{
     );
 
     public EssenceReaverItem() {
-        super(new Item.Properties().stacksTo(1) , essenceReaverModifiers, Registration.ESSENCE_REAVER_EFFECT, null);
+        super(new Item.Properties().stacksTo(1) , essenceReaverModifiers, Registration.CHECK_MANA_ABILITY);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class ThornmailItem extends RelicItem{
 
 
     public ThornmailItem() {
-        super(new Item.Properties().stacksTo(1), thornmailModifiers, Registration.THORNMAIL_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), thornmailModifiers, null);
     }
 
 

@@ -25,7 +25,7 @@ public class PerplexityItem extends RelicItem{
     );
 
     public PerplexityItem() {
-        super(new Properties().stacksTo(1), perplexityModifiers, Registration.PERPLEXITY_EFFECT, null);
+        super(new Properties().stacksTo(1), perplexityModifiers, null);
     }
 
     @Override

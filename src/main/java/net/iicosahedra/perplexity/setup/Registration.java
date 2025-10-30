@@ -14,6 +14,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
@@ -40,7 +41,7 @@ public class Registration {
     public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(BuiltInRegistries.ATTRIBUTE, Perplexity.MODID);
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, Perplexity.MODID);
     public static final DeferredRegister<DataComponentType<?>> DATA_TYPES = DeferredRegister
-            .createDataComponents(ResourceKey.createRegistryKey(ResourceLoc.create("data_types")),Perplexity.MODID);
+            .create(Registries.DATA_COMPONENT_TYPE, Perplexity.MODID);
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, Perplexity.MODID);
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, Perplexity.MODID);
 
@@ -66,6 +67,32 @@ public class Registration {
             String name, UnaryOperator<DataComponentType.Builder<T>> builderUnaryOperator){
         return DATA_TYPES.register(name, ()-> builderUnaryOperator.apply(DataComponentType.builder()).build());
     }
+
+    // Data Components (per-ItemStack state)
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> COMPONENT_COOLDOWN_TICKS =
+            register("cooldown_ticks", builder -> builder
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.INT));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> COMPONENT_STACKS =
+            register("stacks", builder -> builder
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.INT));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> COMPONENT_STORED_DAMAGE =
+            register("stored_damage", builder -> builder
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.INT));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> COMPONENT_FLAG =
+            register("flag", builder -> builder
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.INT));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> COMPONENT_FLAG_BOOL =
+            register("flag_bool", builder -> builder
+                    .persistent(Codec.BOOL)
+                    .networkSynchronized(ByteBufCodecs.BOOL));
 
     //Attributes
     public static final Holder<Attribute> ABILITY_POWER = ATTRIBUTES.register(
@@ -145,32 +172,7 @@ public class Registration {
     public static final Holder<Item> TWILIGHTS_EDGE_ITEM = ITEMS.register("twilights_edge_item", TwilightsEdgeItem::new);
 
     //Effects
-    public static final Holder<MobEffect> DEATHS_DANCE_EFFECT = EFFECTS.register("ignore_pain", DeathsDanceEffect::new);
-    public static final Holder<MobEffect> DIVINE_SUNDERER_EFFECT = EFFECTS.register("divine_spellblade", DivineSundererEffect::new);
-    public static final Holder<MobEffect> NAVORI_EFFECT = EFFECTS.register("transcendence", NavoriFlickerBladeEffect::new);
-    public static final Holder<MobEffect> WARMOGS_EFFECT = EFFECTS.register("warmogs_heart", WarmogsArmorEffect::new);
-    public static final Holder<MobEffect> KRAKEN_EFFECT = EFFECTS.register("bring_it_down", KrakenSlayerEffect::new);
-    public static final Holder<MobEffect> TRINITY_EFFECT = EFFECTS.register("trinity_spellblade", TrinityForceEffect::new);
-    public static final Holder<MobEffect> COLLECTOR_EFFECT = EFFECTS.register("death", TheCollectorEffect::new);
-    public static final Holder<MobEffect> DUSKBLADE_EFFECT = EFFECTS.register("nightstalker", DuskbladeOfDraktharrEffect::new);
-    public static final Holder<MobEffect> ENERGIZE = EFFECTS.register("energize", EnergizeEffect::new);
-    public static final Holder<MobEffect> STORMRAZOR_EFFECT = EFFECTS.register("bolt", StormrazorEffect::new);
-    public static final Holder<MobEffect> RAPIDFIRECANNON_EFFECT = EFFECTS.register("sharpshooter", RapidFirecannonEffect::new);
-    public static final Holder<MobEffect> ECLIPSE_EFFECT = EFFECTS.register("ever_rising_moon", EclipseEffect::new);
-    public static final Holder<MobEffect> SHIELDBOW_EFFECT = EFFECTS.register("lifeline", ImmortalShieldbowEffect::new);
-    public static final Holder<MobEffect> ESSENCE_REAVER_EFFECT = EFFECTS.register("essence_drain", EssenceReaverEffect::new);
-    public static final Holder<MobEffect> OMEN_EFFECT = EFFECTS.register("critical_resilience", RanduinsOmenEffect::new);
-    public static final Holder<MobEffect> NASHORS_EFFECT = EFFECTS.register("icathian_bite", NashorsToothEffect::new);
-    public static final Holder<MobEffect> RIFT_EFFECT = EFFECTS.register("void_corruption", RiftmakerEffect::new);
-    public static final Holder<MobEffect> SERAPHS_EFFECT = EFFECTS.register("mana_lifeline", SeraphsEmbraceEffect::new);
-    public static final Holder<MobEffect> LICH_EFFECT = EFFECTS.register("lich_spellblade", LichBaneEffect::new);
     public static final Holder<MobEffect> GRIEVOUS_WOUNDS_EFFECT = EFFECTS.register("grievous_wounds", GrievousWoundsEffect::new);
-    public static final Holder<MobEffect> MORELLO_EFFECT = EFFECTS.register("morello_wounds", MorellonomiconEffect::new);
-    public static final Holder<MobEffect> CHAINSWORD_EFFECT = EFFECTS.register("hackshorn", ChempunkChainswordEffect::new);
-    public static final Holder<MobEffect> THORNMAIL_EFFECT = EFFECTS.register("thorns", ThornmailEffect::new);
-    public static final Holder<MobEffect> PERPLEXITY_EFFECT = EFFECTS.register("giant_slayer", PerplexityEffect::new);
-    public static final Holder<MobEffect> TWILIGHTS_EFFECT = EFFECTS.register("the_path_between", TwilightsEdgeEffect::new);
-
     //Abilities
     public static final Holder<ActiveAbility> NO_ABILITY = ABILITIES.register("no_ability", NoAbility::new);
     public static final Holder<ActiveAbility> GUNBLADE_ABILITY = ABILITIES.register("lightning_bolt", HextechGunbladeAbility::new);
@@ -183,40 +185,12 @@ public class Registration {
     public static final Holder<ActiveAbility> OMEN_ABILITY = ABILITIES.register("humility", RanduinsOmenAbility::new);
     public static final Holder<ActiveAbility> GARGOYLE_ABILITY = ABILITIES.register("unbreakable", GargoyleStoneplateAbility::new);
     public static final Holder<ActiveAbility> TWILIGHTS_ABILITY = ABILITIES.register("the_path_between", TwilightsEdgeAbility::new);
+    public static final Holder<ActiveAbility> CHECK_MANA_ABILITY = ABILITIES.register("check_mana", CheckManaAbility::new);
 
     //Attachments
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> MANA = ATTACHMENT_TYPES.register("mana", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> DEATHS_DANCE_STACKS = ATTACHMENT_TYPES.register("deaths_dance_stacks", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> DEATHS_DANCE_STORED_DAMAGE = ATTACHMENT_TYPES.register("deaths_dance_stored_damage", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> DIVINE_SUNDERER_COOLDOWN = ATTACHMENT_TYPES.register("divine_sunderer_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> WARMOGS_REGEN_COOLDOWN = ATTACHMENT_TYPES.register("warmogs_regen_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> WARMOGS_COMBAT_COOLDOWN = ATTACHMENT_TYPES.register("warmogs_combat_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> KRAKEN_SLAYER_STACKS = ATTACHMENT_TYPES.register("kraken_slayer_stacks", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TRIFORCE_COOLDOWN = ATTACHMENT_TYPES.register("triforce_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> DUSKBLADE_COOLDOWN = ATTACHMENT_TYPES.register("duskblade_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> DUSKBLADE_IMMUNITY = ATTACHMENT_TYPES.register("duskblade_immunity", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> ENERGIZE_STACKS = ATTACHMENT_TYPES.register("energize_stacks", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> ECLIPSE_COOLDOWN = ATTACHMENT_TYPES.register("eclipse_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> SHIELDBOW_COOLDOWN = ATTACHMENT_TYPES.register("shieldbow_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> GUNBLADE_COOLDOWN = ATTACHMENT_TYPES.register("gunblade_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> ROCKETBELT_COOLDOWN = ATTACHMENT_TYPES.register("rocketbelt_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> YOUMUUS_COOLDOWN = ATTACHMENT_TYPES.register("youmuus_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> PROWLERS_COOLDOWN = ATTACHMENT_TYPES.register("prowlers_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> SPECTRAL_COOLDOWN = ATTACHMENT_TYPES.register("spectral_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> GOREDRINKER_COOLDOWN = ATTACHMENT_TYPES.register("goredrinker_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> STRIDEBREAKER_COOLDOWN = ATTACHMENT_TYPES.register("stridebreaker_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> OMEN_COOLDOWN = ATTACHMENT_TYPES.register("omen_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> GARGOYLE_COOLDOWN = ATTACHMENT_TYPES.register("gargoyle_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> RIFT_STACKS = ATTACHMENT_TYPES.register("rift_stacks", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> RIFT_COOLDOWN = ATTACHMENT_TYPES.register("rift_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> SERAPHS_COOLDOWN = ATTACHMENT_TYPES.register("seraphs_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> LICH_FLAG = ATTACHMENT_TYPES.register("lich_flag", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TWILIGHTS_COOLDOWN = ATTACHMENT_TYPES.register("twilights_cooldown", () -> AttachmentType.<Integer>builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
 
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<ResourceLocation>> ABILITY_SLOT_1 = ATTACHMENT_TYPES.register("ability_slot_1", () -> AttachmentType.<ResourceLocation>builder(() -> NO_ABILITY.unwrapKey().get().location()).serialize(ResourceLocation.CODEC).build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<ResourceLocation>> ABILITY_SLOT_2 = ATTACHMENT_TYPES.register("ability_slot_2", () -> AttachmentType.<ResourceLocation>builder(() -> NO_ABILITY.unwrapKey().get().location()).serialize(ResourceLocation.CODEC).build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<ResourceLocation>> ABILITY_SLOT_3 = ATTACHMENT_TYPES.register("ability_slot_3", () -> AttachmentType.<ResourceLocation>builder(() -> NO_ABILITY.unwrapKey().get().location()).serialize(ResourceLocation.CODEC).build());
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<ResourceLocation>> ABILITY_SLOT_4 = ATTACHMENT_TYPES.register("ability_slot_4", () -> AttachmentType.<ResourceLocation>builder(() -> NO_ABILITY.unwrapKey().get().location()).serialize(ResourceLocation.CODEC).build());
+    // Ability slot attachments removed; abilities are resolved via Curios
 
     //Entities
     public static DeferredHolder<EntityType<?>, EntityType<RocketbeltProjectileEntity>> ROCKETBELT_PROJ = ENTITY_TYPES.register("rocketbelt_proj",()->

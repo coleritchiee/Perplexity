@@ -2,6 +2,7 @@ package net.iicosahedra.perplexity.item;
 
 import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.util.ResourceLoc;
+import net.iicosahedra.perplexity.util.ItemData;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -23,16 +24,15 @@ public class GoredrinkerItem extends RelicItem{
             Registration.ABILITY_HASTE, new AttributeModifier(ResourceLoc.create("attribute.perplexity.item.goredrinker.ability_haste"), 20, AttributeModifier.Operation.ADD_VALUE)
     );
     public GoredrinkerItem() {
-        super(new Item.Properties().stacksTo(1), goreModifiers, null, Registration.GOREDRINKER_ABILITY);
+        super(new Item.Properties().stacksTo(1), goreModifiers, Registration.GOREDRINKER_ABILITY);
     }
 
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         super.curioTick(slotContext, stack);
         if(!slotContext.entity().level().isClientSide()) {
-            if (slotContext.entity().getData(Registration.GOREDRINKER_COOLDOWN.value()) > 0) {
-                slotContext.entity().setData(Registration.GOREDRINKER_COOLDOWN,
-                        slotContext.entity().getData(Registration.GOREDRINKER_COOLDOWN.value()) - 1);
+            if (ItemData.getCooldown(stack) > 0) {
+                ItemData.setCooldown(stack, ItemData.getCooldown(stack) - 1);
             }
         }
     }

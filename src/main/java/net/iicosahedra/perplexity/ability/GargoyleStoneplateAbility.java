@@ -2,12 +2,16 @@ package net.iicosahedra.perplexity.ability;
 
 import net.iicosahedra.perplexity.client.particle.ShockwaveEffect;
 import net.iicosahedra.perplexity.setup.Registration;
+import net.iicosahedra.perplexity.item.GargoyleStoneplateItem;
+import net.iicosahedra.perplexity.util.CuriosUtil;
+import net.iicosahedra.perplexity.util.ItemData;
 import net.iicosahedra.perplexity.util.ResourceLoc;
 import net.iicosahedra.perplexity.util.TickScheduler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Objects;
 
@@ -18,7 +22,8 @@ public class GargoyleStoneplateAbility extends ActiveAbility{
 
     @Override
     public void cast(Player player) {
-        if (player.getData(Registration.GARGOYLE_COOLDOWN) == 0) {
+        var stackOpt = CuriosUtil.findFirstEquipped(player, GargoyleStoneplateItem.class);
+        if (stackOpt.isPresent() && ItemData.getCooldown(stackOpt.get()) == 0) {
             float shieldAmount = player.getMaxHealth();
             player.getAttribute(Attributes.MAX_ABSORPTION).addTransientModifier(new AttributeModifier(ResourceLoc.create("attribute.perplexity.gargoyle.am"), shieldAmount, AttributeModifier.Operation.ADD_VALUE));
             player.setAbsorptionAmount(player.getAbsorptionAmount() + shieldAmount);
@@ -29,12 +34,13 @@ public class GargoyleStoneplateAbility extends ActiveAbility{
                 }
             });
             ShockwaveEffect.createShockwaveParticles(player, 1, 0xfff261, 2f);
-            player.setData(Registration.GARGOYLE_COOLDOWN.value(), (int)(60*20* CooldownCalc.cooldownReduction(player.getAttribute(Registration.ABILITY_HASTE).getValue())));
+            ItemData.setCooldown(stackOpt.get(), (int)(60*20* CooldownCalc.cooldownReduction(player.getAttribute(Registration.ABILITY_HASTE).getValue())));
         }
         else{
-            player.displayClientMessage(Component.literal("Gargoyle Stoneplate is on cooldown for "+player.getData(Registration.GARGOYLE_COOLDOWN)/20+" more seconds."), true);
+            player.displayClientMessage(Component.literal("Gargoyle Stoneplate is on cooldown for "+(ItemData.getCooldown(stackOpt.orElse(ItemStack.EMPTY))/20)+" more seconds."), true);
             player.setData(Registration.MANA, player.getData(Registration.MANA)+manaCost);
-            player.setData(Registration.LICH_FLAG.value(), 0);
+            net.iicosahedra.perplexity.util.CuriosUtil.findFirstEquipped(player, net.iicosahedra.perplexity.item.LichBaneItem.class)
+                    .ifPresent(s -> net.iicosahedra.perplexity.util.ItemData.setFlag(s, 0));
         }
     }
 }

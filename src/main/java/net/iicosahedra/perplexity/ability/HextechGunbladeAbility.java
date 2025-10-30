@@ -1,6 +1,9 @@
 package net.iicosahedra.perplexity.ability;
 
 import net.iicosahedra.perplexity.client.particle.LineEffect;
+import net.iicosahedra.perplexity.item.HextechGunbladeItem;
+import net.iicosahedra.perplexity.util.CuriosUtil;
+import net.iicosahedra.perplexity.util.ItemData;
 import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.util.HitScanResult;
 import net.iicosahedra.perplexity.util.ResourceLoc;
@@ -14,6 +17,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.EntityHitResult;
 import org.joml.Vector3f;
 
@@ -26,7 +30,8 @@ public class HextechGunbladeAbility extends ActiveAbility {
 
     @Override
     public void cast(Player player) {
-        if (player.getData(Registration.GUNBLADE_COOLDOWN) == 0) {
+        var stackOpt = CuriosUtil.findFirstEquipped(player, HextechGunbladeItem.class);
+        if (stackOpt.isPresent() && ItemData.getCooldown(stackOpt.get()) == 0) {
             EntityHitResult result = HitScanResult.getPlayerPOVHitResult(player, player.entityInteractionRange() + 6);
             if (result != null && result.getEntity() instanceof LivingEntity entity) {
                 entity.hurt(new DamageSource(entity.level().registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE)
@@ -39,16 +44,17 @@ public class HextechGunbladeAbility extends ActiveAbility {
                         }
                 });
                 LineEffect.createLineParticles(player, entity, new Vector3f(0.1411764f, 1f, 0.51372549f), 1f, 5);
-                player.setData(Registration.GUNBLADE_COOLDOWN.value(), (int)(1200* CooldownCalc.cooldownReduction(player.getAttribute(Registration.ABILITY_HASTE).getValue())));
+                ItemData.setCooldown(stackOpt.get(), (int)(1200* CooldownCalc.cooldownReduction(player.getAttribute(Registration.ABILITY_HASTE).getValue())));
             }
             else{
                 player.setData(Registration.MANA, player.getData(Registration.MANA)+manaCost);
             }
         }
         else{
-            player.displayClientMessage(Component.literal("Hextech Gunblade is on cooldown for "+player.getData(Registration.GUNBLADE_COOLDOWN)/20+" more seconds."), true);
+            player.displayClientMessage(Component.literal("Hextech Gunblade is on cooldown for "+(ItemData.getCooldown(stackOpt.orElse(ItemStack.EMPTY))/20)+" more seconds."), true);
             player.setData(Registration.MANA, player.getData(Registration.MANA)+manaCost);
-            player.setData(Registration.LICH_FLAG.value(), 0);
+            net.iicosahedra.perplexity.util.CuriosUtil.findFirstEquipped(player, net.iicosahedra.perplexity.item.LichBaneItem.class)
+                    .ifPresent(s -> net.iicosahedra.perplexity.util.ItemData.setFlag(s, 0));
         }
     }
 }

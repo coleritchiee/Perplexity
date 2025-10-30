@@ -3,6 +3,7 @@ package net.iicosahedra.perplexity.item;
 import net.iicosahedra.perplexity.ability.ActiveAbility;
 import net.iicosahedra.perplexity.setup.Registration;
 import net.iicosahedra.perplexity.util.ResourceLoc;
+import net.iicosahedra.perplexity.util.ItemData;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
@@ -27,7 +28,15 @@ public class RiftmakerItem extends RelicItem{
             Registration.ABILITY_HASTE, new AttributeModifier(ResourceLoc.create("attribute.perplexity.item.riftmaker.ability_haste"), 15, AttributeModifier.Operation.ADD_VALUE)
     );
     public RiftmakerItem() {
-        super(new Item.Properties().stacksTo(1), riftModifiers, Registration.RIFT_EFFECT, null);
+        super(new Item.Properties().stacksTo(1), riftModifiers, null);
+    }
+
+    @Override
+    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
+        super.onEquip(slotContext, prevStack, stack);
+        slotContext.entity().getAttribute(Registration.ABILITY_POWER).addOrUpdateTransientModifier(
+                new AttributeModifier(ResourceLoc.create("attribute.perplexity.void_inf.ap"), 0.02 *slotContext.entity().getData(Registration.MANA), AttributeModifier.Operation.ADD_VALUE));
+
     }
 
     @Override
@@ -42,17 +51,24 @@ public class RiftmakerItem extends RelicItem{
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         super.curioTick(slotContext, stack);
         if(!slotContext.entity().level().isClientSide()) {
-            if (slotContext.entity().getData(Registration.RIFT_COOLDOWN) == 0) {
-                slotContext.entity().setData(Registration.RIFT_STACKS, 0);
+            if (ItemData.getCooldown(stack) == 0) {
+                ItemData.setStacks(stack, 0);
                 if(slotContext.entity().getAttribute(Registration.OMNIVAMP).hasModifier(ResourceLoc.create("attribute.perplexity.rift.omni"))) {
                     slotContext.entity().getAttribute(Registration.OMNIVAMP).removeModifier(ResourceLoc.create("attribute.perplexity.rift.omni"));
                 }
             }
-            if (slotContext.entity().getData(Registration.RIFT_COOLDOWN.value()) > 0) {
-                slotContext.entity().setData(Registration.RIFT_COOLDOWN,
-                        slotContext.entity().getData(Registration.RIFT_COOLDOWN.value()) - 1);
+
+            if(slotContext.entity().getAttribute(Registration.ABILITY_POWER).hasModifier(ResourceLoc.create("attribute.perplexity.void_inf.ap"))){
+                if(slotContext.entity().getAttribute(Registration.ABILITY_POWER).getModifier(ResourceLoc.create("attribute.perplexity.void_inf.ap")).amount() != 0.02 * slotContext.entity().getMaxHealth()){
+                    slotContext.entity().getAttribute(Registration.ABILITY_POWER).addOrUpdateTransientModifier(
+                            new AttributeModifier(ResourceLoc.create("attribute.perplexity.void_inf.ap"), 0.02 * slotContext.entity().getMaxHealth(), AttributeModifier.Operation.ADD_VALUE));
+                }
             }
-            slotContext.entity().getAttribute(Registration.ABILITY_POWER).addOrUpdateTransientModifier(new AttributeModifier(ResourceLoc.create("attribute.perplexity.void_inf.ap"), slotContext.entity().getMaxHealth()*0.02, AttributeModifier.Operation.ADD_VALUE));
+            else{
+                slotContext.entity().getAttribute(Registration.ABILITY_POWER).addOrUpdateTransientModifier(
+                        new AttributeModifier(ResourceLoc.create("attribute.perplexity.void_inf.ap"), 0.02 *slotContext.entity().getMaxHealth(), AttributeModifier.Operation.ADD_VALUE));
+
+            }
         }
     }
 

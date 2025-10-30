@@ -1,7 +1,8 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '1.0.21'
+    id 'net.neoforged.moddev' version '2.0.107'
+    id 'idea'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -17,10 +18,32 @@ version = mod_version
 group = mod_group_id
 
 repositories {
-    mavenLocal()
+    maven { url 'https://maven.shadowsoffire.dev/releases' }
     maven {
-        url = "https://www.cursemaven.com"
+        name = "Curios"
+        url = uri("https://maven.theillusivec4.top/")
     }
+    maven {
+        url "https://maven.su5ed.dev/releases"
+    }
+    maven {
+        // location of the maven that hosts JEI files since January 2023
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+    maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroup("software.bernie.geckolib")
+        }
+    }
+    maven { url = "https://maven.firstdarkdev.xyz/snapshots" }
 }
 
 base {
@@ -115,10 +138,15 @@ configurations {
 }
 
 dependencies {
-    runtimeOnly "curse.maven:adorned-1036809:5740650"
-    compileOnly "curse.maven:adorned-1036809:5740650"
-}
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curioVersion}+${minecraft_version}"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curioVersion}+${minecraft_version}:api"
+
+    implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
+}
 // This block of code expands all declared replace properties in the specified resource targets.
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
