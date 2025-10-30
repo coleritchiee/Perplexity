@@ -22,7 +22,7 @@ public class NashorsToothEffect{
     @SubscribeEvent
     public static void onAttack(LivingIncomingDamageEvent event) {
         if(event.getSource().getEntity() instanceof Player source){
-            if(CuriosUtil.findFirstEquipped(source, NashorsToothItem.class).isPresent() && !source.equals(event.getEntity())) {
+            if(CuriosUtil.findFirstEquipped(source, NashorsToothItem.class).isPresent() && !source.equals(event.getEntity()) && !event.getSource().is(DamageTypes.MAGIC)){
                 event.getEntity().hurt(new DamageSource(event.getEntity().level()
                         .registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(DamageTypes.MAGIC), event.getEntity(), source),
                         (float) (1.5+source.getAttributeValue(Registration.ABILITY_POWER)*0.15));

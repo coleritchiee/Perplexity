@@ -83,6 +83,7 @@ class ModItemModelProvider extends ItemModelProvider {
         handheldItem(Registration.VOID_STAFF_ITEM.value());
         handheldItem(Registration.PERPLEXITY_ITEM.value());
         handheldItem(Registration.TWILIGHTS_EDGE_ITEM.value());
+        handheldItem(Registration.ITEM_ANVIL.value());
     }
 }
 

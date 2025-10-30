@@ -1,0 +1,9 @@
+{
+  "ui.item_anvil_open": {
+    "sounds": [
+      { "name": "perplexity:ui/item_anvil_open", "stream": false }
+    ]
+  }
+}
+
+

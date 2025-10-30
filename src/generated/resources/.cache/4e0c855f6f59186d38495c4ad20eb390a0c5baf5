@@ -1,4 +1,4 @@
-// 1.21.1	2024-12-23T19:05:41.2000133	Item Models: perplexity
+// 1.21.1	2025-10-30T15:21:21.3281896	Item Models: perplexity
 1016c5d94f73ab98bee0c5f77e8491e9d4246f8a assets/perplexity/models/item/chempunk_chainsword_item.json
 44fd884390ed885d03c38178ad92f628c5c1097d assets/perplexity/models/item/deaths_dance_item.json
 20d3c862462bcde13781c61112f55ca705115cb4 assets/perplexity/models/item/divine_sunderer_item.json
@@ -11,6 +11,7 @@ c79f22884f4d7a536658de982d7abbf539ad6e49 assets/perplexity/models/item/goredrink
 64883456cb5f43d004f3feeeba0ed7ac72219065 assets/perplexity/models/item/hextech_rocketbelt_item.json
 d7b6157a719b41ba18ea7ea9197442169e2c5c38 assets/perplexity/models/item/immortal_shieldbow_item.json
 c65732099cd16beab272d6395d9a762ba5ddd807 assets/perplexity/models/item/infinity_edge_item.json
+5db8520e7b59842d87c0ffd1973223f93301c782 assets/perplexity/models/item/item_anvil.json
 24976ff6d24d446bcb338f2dacdfb343a5f185c2 assets/perplexity/models/item/kraken_slayer_item.json
 7e9881ca9957045fe4c025cd8ff867e0243f64d7 assets/perplexity/models/item/lich_bane_item.json
 abed5049e4fc4750b51b66cf87eec35b0e05192d assets/perplexity/models/item/morellonomicon_item.json

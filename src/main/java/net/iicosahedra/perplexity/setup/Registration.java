@@ -18,6 +18,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -42,6 +43,7 @@ public class Registration {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, Perplexity.MODID);
     public static final DeferredRegister<DataComponentType<?>> DATA_TYPES = DeferredRegister
             .create(Registries.DATA_COMPONENT_TYPE, Perplexity.MODID);
+    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, Perplexity.MODID);
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, Perplexity.MODID);
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, Perplexity.MODID);
 
@@ -56,6 +58,7 @@ public class Registration {
         ITEMS.register(modEventBus);
         EFFECTS.register(modEventBus);
         DATA_TYPES.register(modEventBus);
+        SOUNDS.register(modEventBus);
         ATTACHMENT_TYPES.register(modEventBus);
         ABILITIES.register(modEventBus);
         ENTITY_TYPES.register(modEventBus);
@@ -67,6 +70,22 @@ public class Registration {
             String name, UnaryOperator<DataComponentType.Builder<T>> builderUnaryOperator){
         return DATA_TYPES.register(name, ()-> builderUnaryOperator.apply(DataComponentType.builder()).build());
     }
+
+    // Item Anvil Data Components
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> COMPONENT_ANVIL_STATE =
+            register("anvil_state", b -> b.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> COMPONENT_ANVIL_SEED =
+            register("anvil_seed", b -> b.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ResourceLocation>> COMPONENT_ANVIL_RESULT =
+            register("anvil_result", b -> b.persistent(ResourceLocation.CODEC).networkSynchronized(ResourceLocation.STREAM_CODEC));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> COMPONENT_ANVIL_START_TICK =
+            register("anvil_start_tick", b -> b.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
+
+    // Sounds
+    public static final Holder<SoundEvent> ITEM_ANVIL_OPEN = SOUNDS.register(
+            "ui.item_anvil_open",
+            () -> SoundEvent.createVariableRangeEvent(ResourceLoc.create("ui.item_anvil_open"))
+    );
 
     // Data Components (per-ItemStack state)
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> COMPONENT_COOLDOWN_TICKS =
@@ -170,6 +189,7 @@ public class Registration {
     public static final Holder<Item> VOID_STAFF_ITEM = ITEMS.register("void_staff_item", VoidStaffItem::new);
     public static final Holder<Item> PERPLEXITY_ITEM = ITEMS.register("perplexity_item", PerplexityItem::new);
     public static final Holder<Item> TWILIGHTS_EDGE_ITEM = ITEMS.register("twilights_edge_item", TwilightsEdgeItem::new);
+    public static final Holder<Item> ITEM_ANVIL = ITEMS.register("item_anvil", ItemAnvilItem::new);
 
     //Effects
     public static final Holder<MobEffect> GRIEVOUS_WOUNDS_EFFECT = EFFECTS.register("grievous_wounds", GrievousWoundsEffect::new);

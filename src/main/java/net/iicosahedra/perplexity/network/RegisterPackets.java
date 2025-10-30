@@ -4,6 +4,9 @@ import net.iicosahedra.perplexity.Perplexity;
 import net.iicosahedra.perplexity.network.packet.AbilityUsePacket;
 import net.iicosahedra.perplexity.network.packet.ProcessDeltaMovementPacket;
 import net.iicosahedra.perplexity.network.packet.ProcessFlightMovementPacket;
+import net.iicosahedra.perplexity.network.packet.UseAnvilPacket;
+import net.iicosahedra.perplexity.network.packet.AnvilRollPacket;
+import net.iicosahedra.perplexity.network.packet.AnvilClaimPacket;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -38,6 +41,22 @@ public class RegisterPackets {
                         ClientPayloadHandler::processFlightMovement,
                         ServerPayloadHandler::processFlightMovement
                 )
+        );
+        // Item Anvil packets
+        registrar.playToServer(
+                UseAnvilPacket.TYPE,
+                UseAnvilPacket.STREAM_CODEC,
+                ServerPayloadHandler::onUseAnvil
+        );
+        registrar.playToClient(
+                AnvilRollPacket.TYPE,
+                AnvilRollPacket.STREAM_CODEC,
+                ClientPayloadHandler::onAnvilRoll
+        );
+        registrar.playToServer(
+                AnvilClaimPacket.TYPE,
+                AnvilClaimPacket.STREAM_CODEC,
+                ServerPayloadHandler::onAnvilClaim
         );
     }
 }

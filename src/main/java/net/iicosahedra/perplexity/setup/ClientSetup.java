@@ -9,7 +9,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import org.checkerframework.dataflow.qual.SideEffectFree;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = Perplexity.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class ClientSetup {
